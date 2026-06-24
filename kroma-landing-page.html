@@ -56,14 +56,51 @@
 
   /* ── HERO ── */
   #hero { position:relative; height:100vh; overflow:hidden; }
-  #hero-img {
+  .hero-layer {
     position:absolute; inset:0;
     width:100%; height:115%;
-    object-fit:cover; object-position:center;
+    object-fit:cover; object-position:center 30%;
     will-change:transform;
-    animation: heroIn 1.8s cubic-bezier(.16,1,.3,1) both;
   }
+  #hero-clean { animation: heroIn 1.8s cubic-bezier(.16,1,.3,1) both; }
+  #hero-art   { opacity:0; animation: heroIn 1.8s cubic-bezier(.16,1,.3,1) both; }
   @keyframes heroIn { from { transform:scale(1.06); } to { transform:scale(1); } }
+
+  /* ── CIRCLES ANIMATION ── */
+  #circles-pin { height:300vh; position:relative; }
+  #circles-sticky {
+    position:sticky; top:0; height:100vh; overflow:hidden;
+    background:#f0efec;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  #circles-stage { position:relative; display:flex; align-items:center; justify-content:center; }
+  .c-disc {
+    position:absolute;
+    width:clamp(200px,26vw,320px);
+    height:clamp(200px,26vw,320px);
+    border-radius:50%;
+    overflow:hidden;
+    will-change:transform,opacity;
+  }
+  .c-disc img {
+    width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    border-radius:50%;
+    pointer-events:none;
+  }
+  #c-left  { opacity:0; }
+  #c-right { opacity:0; }
+  .c-label {
+    position:absolute; bottom:-30px; left:50%; transform:translateX(-50%);
+    font-size:10px; letter-spacing:.22em; color:var(--ink-60);
+    white-space:nowrap; opacity:0;
+    transition:opacity .4s ease;
+  }
+  #circles-footer {
+    position:absolute; bottom:clamp(40px,5vw,64px);
+    font-size:10px; letter-spacing:.16em; color:var(--ink-35); text-align:center;
+    opacity:0; transition:opacity .5s ease;
+  }
 
   /* ── REVEALS ── */
   .reveal {
@@ -198,7 +235,8 @@
 
 <!-- HERO -->
 <section id="hero">
-  <img id="hero-img" src="Images/kroma-header.png" alt="KROMA — Outdoor Art Gallery">
+  <img id="hero-clean" class="hero-layer" src="Images/kroma-header-clean.png" alt="KROMA">
+  <img id="hero-art"   class="hero-layer" src="Images/kroma-header.png"       alt="KROMA — Outdoor Art Gallery">
 </section>
 
 <!-- INTRO -->
@@ -228,36 +266,37 @@
       <p class="text-body" style="padding-bottom:4px;">Le cercle ouvre la collection — une forme qui ne s'impose pas, elle compose avec l'architecture. 60, 80, 100 cm : une présence pensée pour habiter votre espace.</p>
     </div>
 
-    <!-- BAY_XL plein cadre -->
-    <div class="reveal" id="design-image">
-      <img id="design-parallax" src="Images/BAY_XL.png" alt="KROMA — Design">
-    </div>
+  </div>
+</section>
 
-    <!-- Échelles -->
-    <div class="design-scales reveal">
-      <div class="scale-item">
-        <div class="scale-circle" style="width:clamp(52px,6vw,80px);height:clamp(52px,6vw,80px);"></div>
-        <p class="scale-label">60 CM</p>
+<!-- CIRCLES ANIMATION -->
+<div id="circles-pin">
+  <div id="circles-sticky">
+    <div id="circles-stage" style="width:clamp(620px,80vw,1000px);height:clamp(200px,26vw,320px);">
+      <div class="c-disc" id="c-left">
+        <img src="Images/BAY_XL.png" style="object-position:20% center;">
+        <span class="c-label">60 CM</span>
       </div>
-      <div class="scale-item">
-        <div class="scale-circle" style="width:clamp(74px,8.5vw,112px);height:clamp(74px,8.5vw,112px);"></div>
-        <p class="scale-label">80 CM</p>
+      <div class="c-disc" id="c-center">
+        <img src="Images/BAY_XL.png" style="object-position:50% center;">
+        <span class="c-label">80 CM</span>
       </div>
-      <div class="scale-item">
-        <div class="scale-circle" style="width:clamp(96px,11vw,148px);height:clamp(96px,11vw,148px);"></div>
-        <p class="scale-label">100 CM</p>
-      </div>
-      <div style="margin-left:auto;align-self:center;">
-        <p style="font-size:11px;letter-spacing:.06em;color:var(--ink-35);line-height:1.6;">Édition limitée<br>50 exemplaires par taille</p>
+      <div class="c-disc" id="c-right">
+        <img src="Images/BAY_XL.png" style="object-position:80% center;">
+        <span class="c-label">100 CM</span>
       </div>
     </div>
+    <p id="circles-footer">Édition limitée — 50 exemplaires par taille</p>
+  </div>
+</div>
 
-    <!-- Texte bas -->
-    <div class="stagger" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,130px);margin-top:clamp(50px,7vw,90px);">
+<!-- DESIGN — texte bas -->
+<section class="section">
+  <div class="container">
+    <div class="stagger" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,130px);">
       <p class="text-lead">Une terrasse pensée dans le moindre détail. Une piscine intégrée avec soin. Et ce mur, resté nu — l'absence qu'on remarque seulement après coup.</p>
       <p class="text-lead" style="font-weight:500;color:var(--ink);">KROMA est ce dernier geste.</p>
     </div>
-
   </div>
 </section>
 
@@ -459,25 +498,30 @@
 </footer>
 
 <script>
-// ── HERO PARALLAX ──────────────────────────────
-const heroImg = document.getElementById('hero-img');
-
-// ── NAV ───────────────────────────────────────
-const nav = document.getElementById('nav');
-const hero = document.getElementById('hero');
+// ── ELEMENTS ──────────────────────────────────
+const heroClean   = document.getElementById('hero-clean');
+const heroArt     = document.getElementById('hero-art');
+const nav         = document.getElementById('nav');
+const hero        = document.getElementById('hero');
+const circlesPin  = document.getElementById('circles-pin');
+const cLeft       = document.getElementById('c-left');
+const cCenter     = document.getElementById('c-center');
+const cRight      = document.getElementById('c-right');
+const circlesFooter = document.getElementById('circles-footer');
 const spySections = ['design','matiere','collection','pros','particuliers']
   .map(id => document.getElementById(id)).filter(Boolean);
-
-// ── DESIGN IMAGE PARALLAX ─────────────────────
-const designParallax = document.getElementById('design-parallax');
 
 // ── SCROLL HANDLER ────────────────────────────
 function onScroll() {
   const sy = window.scrollY;
   const vh = window.innerHeight;
 
-  // Hero parallax
-  if (heroImg) heroImg.style.transform = `translateY(${sy * 0.3}px)`;
+  // Hero: parallax + cross-fade
+  const heroParallax = `translateY(${sy * 0.3}px)`;
+  if (heroClean) heroClean.style.transform = heroParallax;
+  if (heroArt)   heroArt.style.transform   = heroParallax;
+  const fadeP = Math.min(1, sy / (vh * 0.22));
+  if (heroArt) heroArt.style.opacity = fadeP;
 
   // Nav state
   const heroBottom = hero ? hero.getBoundingClientRect().bottom : -1;
@@ -494,14 +538,25 @@ function onScroll() {
     a.classList.toggle('active', a.dataset.spy === active);
   });
 
-  // Design image subtle parallax
-  if (designParallax) {
-    const r = designParallax.closest('.reveal');
-    if (r) {
-      const rr = r.getBoundingClientRect();
-      const p = (vh - rr.top) / (vh + rr.height);
-      designParallax.style.transform = `translateY(${(p - 0.5) * -30}px)`;
-    }
+  // Circles fan-out animation
+  if (circlesPin && cLeft && cRight) {
+    const cr  = circlesPin.getBoundingClientRect();
+    const total = circlesPin.offsetHeight - vh;
+    const p   = Math.max(0, Math.min(1, -cr.top / total));
+
+    const discW  = cLeft.offsetWidth;
+    const spread = discW * 1.18;
+    const fanP   = p < 0.5 ? p * 2 : 1; // ease in first half, hold
+
+    cLeft.style.transform  = `translateX(${-spread * fanP}px)`;
+    cRight.style.transform = `translateX(${spread * fanP}px)`;
+    cLeft.style.opacity    = Math.min(1, p * 5);
+    cRight.style.opacity   = Math.min(1, p * 5);
+
+    // labels + footer appear once spread
+    const showExtra = fanP > 0.55;
+    document.querySelectorAll('.c-label').forEach(l => l.style.opacity = showExtra ? '1' : '0');
+    if (circlesFooter) circlesFooter.style.opacity = showExtra ? '1' : '0';
   }
 }
 
