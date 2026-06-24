@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KROMA — Outdoor Art Gallery</title>
+<style>
+  @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
+  @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap;}
+  @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Medium.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap;}
+  @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap;}
+  @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
+  @font-face{font-family:'ProfaCondensed';src:url('Fonts/profa-font-family/ProfaTrial-SemiBoldCondensed.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap;}
+  @font-face{font-family:'ProfaCondensed';src:url('Fonts/profa-font-family/ProfaTrial-BoldCondensed.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:#f7f6f4;font-family:'Profa','Helvetica Neue',Helvetica,Arial,sans-serif;color:#16171b;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;}
+  ::selection{background:#16171b;color:#f7f6f4;}
+  h2{font-family:'ProfaCondensed','Profa','Helvetica Neue',sans-serif;}
+
+  /* ── NAV ── */
+  #kroma-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:28px 44px;transition:background .6s ease,padding .5s ease,border-color .5s ease;background:transparent;border-bottom:1px solid transparent;}
+  #kroma-wordmark{font-size:12px;font-weight:500;letter-spacing:.3em;color:#16171b;text-decoration:none;transition:color .5s ease;}
+  #kroma-nav-tagline{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(22,23,27,.55);white-space:nowrap;}
+  #kroma-nav-links{display:flex;gap:34px;align-items:center;justify-content:flex-end;opacity:0;transition:opacity .5s ease;pointer-events:none;}
+  #kroma-nav-links a{font-size:12px;letter-spacing:.08em;color:rgba(22,23,27,.6);text-decoration:none;transition:color .3s ease,opacity .3s ease;}
+  #kroma-nav-links a.active{color:#16171b;opacity:1;}
+
+  /* ── HERO ── */
+  #hero{position:relative;height:100vh;overflow:hidden;}
+  #hero-img{position:absolute;inset:0;width:100%;height:115%;object-fit:cover;object-position:center;will-change:transform;transform-origin:center center;animation:heroIn 1.6s cubic-bezier(0.16,1,0.3,1) forwards;}
+  @keyframes heroIn{from{transform:scale(1.08);}to{transform:scale(1);}}
+
+  /* ── CLIP REVEAL ── */
+  .cr-line{display:block;overflow:hidden;}
+  .cr-inner{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(0.16,1,0.3,1);}
+  .cr-inner.visible{transform:translateY(0);}
+
+  .cr-word{display:inline-block;overflow:hidden;vertical-align:bottom;}
+  .cr-word-inner{display:inline-block;transform:translateY(110%);transition:transform 0.9s cubic-bezier(0.16,1,0.3,1);}
+  .cr-word-inner.visible{transform:translateY(0);}
+
+  /* ── FADE ── */
+  .fade-up{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease;}
+  .fade-up.visible{opacity:1;transform:translateY(0);}
+
+  /* ── EYEBROW ── */
+  .eyebrow{font-size:11px;letter-spacing:.36em;text-transform:uppercase;color:#9a988f;margin-bottom:30px;overflow:hidden;}
+  .eyebrow-dark{color:#76777c;}
+
+  /* ── SECTION DESIGN — STICKY ── */
+  #design-pin{height:250vh;}
+  #design-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;}
+  #design-left{padding:80px 60px 80px 80px;display:flex;flex-direction:column;justify-content:center;background:#f7f6f4;}
+  #design-right{position:relative;overflow:hidden;}
+  #design-right img{position:absolute;inset:-15% 0;width:100%;height:130%;object-fit:cover;object-position:center;will-change:transform;}
+  .design-phase{position:absolute;opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease;width:100%;}
+  .design-phase.active{opacity:1;transform:translateY(0);}
+  #design-left .h2-wrap{overflow:hidden;margin-bottom:28px;}
+  #design-left h2{font-size:clamp(32px,3.6vw,56px);font-weight:600;letter-spacing:-.01em;line-height:1.06;transform:translateY(110%);transition:transform 1.1s cubic-bezier(0.16,1,0.3,1);}
+  #design-left h2.visible{transform:translateY(0);}
+
+  /* ── MATIÈRE ── */
+  #matiere{background:#16171b;color:#f7f6f4;padding:160px 40px;}
+  #matiere-video{position:relative;width:100%;aspect-ratio:21/9;background:#1f2024;border-radius:3px;overflow:hidden;margin-bottom:90px;}
+  @keyframes pulse{0%,100%{opacity:.5;}50%{opacity:1;}}
+
+  /* ── COLLECTION — HORIZONTAL SCROLL ── */
+  #collection-pin{height:280vh;}
+  #collection-sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:#f7f6f4;}
+  #collection-header{padding:80px 80px 50px;display:flex;align-items:flex-end;justify-content:space-between;}
+  #collection-track-wrap{overflow:hidden;padding:0 80px;}
+  #collection-track{display:flex;gap:3vw;will-change:transform;transition:transform .05s linear;}
+  .coll-card{flex:0 0 38vw;}
+  .coll-card-img{width:100%;aspect-ratio:4/5;background:#eceae6;border-radius:2px;overflow:hidden;position:relative;margin-bottom:24px;}
+  .coll-card-img span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'SFMono-Regular',Menlo,monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9a988f;}
+  .coll-card h3{font-family:'ProfaCondensed','Profa',sans-serif;font-size:clamp(26px,2.4vw,36px);font-weight:600;letter-spacing:.04em;margin-bottom:6px;}
+  .coll-card p{font-size:16px;font-weight:300;font-style:italic;color:#54534e;}
+  #coll-progress{height:1px;background:rgba(0,0,0,.1);margin:40px 80px 0;position:relative;}
+  #coll-bar{position:absolute;top:0;left:0;height:100%;background:#16171b;width:0%;transition:width .1s linear;}
+
+  /* ── FORMS ── */
+  .kf-field{display:flex;flex-direction:column;gap:8px;margin-bottom:26px;}
+  .kf-field label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9a988f;}
+  .kf-field input,.kf-field textarea{font-family:inherit;font-size:16px;font-weight:300;color:inherit;background:transparent;border:none;border-bottom:1.5px solid rgba(0,0,0,.18);padding:9px 2px;outline:none;transition:border-color .3s ease;resize:vertical;}
+  .kf-field input:focus,.kf-field textarea:focus{border-color:#16171b;}
+  .kf-dark .kf-field label{color:rgba(247,246,244,.55);}
+  .kf-dark .kf-field input,.kf-dark .kf-field textarea{color:#f7f6f4;border-bottom-color:rgba(255,255,255,.25);}
+  .kf-dark .kf-field input:focus,.kf-dark .kf-field textarea:focus{border-color:#f7f6f4;}
+  .kf-submit{display:inline-flex;align-items:center;gap:10px;font-family:inherit;font-size:15px;letter-spacing:.02em;color:#f7f6f4;background:#16171b;border:none;text-decoration:none;padding:17px 32px;border-radius:2px;cursor:pointer;transition:transform .3s ease,box-shadow .3s ease;}
+  .kf-submit:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,.18);}
+  .kf-helper{font-size:12.5px;color:#9a988f;margin-top:14px;}
+  .kf-dark .kf-helper{color:rgba(247,246,244,.45);}
+  .kf-hidden{display:none!important;}
+  .kf-toggle{background:none;border:none;font:inherit;}
+  .kf-outline{background:transparent;color:#16171b;border:1.5px solid #16171b;padding:15.5px 30px;}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav id="kroma-nav">
+  <a href="#hero" id="kroma-wordmark">KROMA</a>
+  <span id="kroma-nav-tagline">Outdoor Art Gallery</span>
+  <div id="kroma-nav-links">
+    <a href="#design" data-spy="design">Design</a>
+    <a href="#matiere" data-spy="matiere">Matière</a>
+    <a href="#collection" data-spy="collection">Collection</a>
+    <a href="#pros" data-spy="pros">Pros</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <img id="hero-img" src="Images/kroma-header.png" alt="KROMA — Outdoor Art Gallery">
+</section>
+
+<!-- ============ DESIGN — STICKY ============ -->
+<div id="design-pin">
+  <div id="design-sticky" id="design">
+    <!-- Left panel -->
+    <div id="design-left">
+      <div class="eyebrow fade-up">01 — Design</div>
+      <div class="h2-wrap">
+        <h2 id="design-h2">Une signature.<br>Trois échelles.</h2>
+      </div>
+
+      <!-- Phase 0: sous-titre -->
+      <div class="design-phase active" id="dp0" style="position:relative;">
+        <p class="fade-up" style="font-size:clamp(18px,1.6vw,22px);font-weight:300;color:#54534e;line-height:1.6;max-width:420px;">60, 80, 100 cm — une présence pensée pour habiter votre espace.</p>
+        <p class="fade-up" style="font-size:clamp(16px,1.4vw,19px);font-weight:300;color:#2c2c29;line-height:1.65;max-width:420px;margin-top:30px;">KROMA réinvente le mur extérieur comme une toile. Le cercle ouvre la collection — une forme qui ne s'impose pas, elle compose avec l'architecture.</p>
+      </div>
+
+      <!-- Phase 1: formats -->
+      <div class="design-phase" id="dp1">
+        <div style="display:flex;align-items:flex-end;gap:clamp(20px,3vw,50px);margin-top:10px;">
+          <div style="text-align:center;">
+            <div style="width:clamp(60px,7vw,100px);height:clamp(60px,7vw,100px);border:1.5px solid #16171b;border-radius:50%;margin:0 auto 14px;"></div>
+            <div style="font-size:12px;letter-spacing:.16em;color:#54534e;">60 CM</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:clamp(85px,10vw,140px);height:clamp(85px,10vw,140px);border:1.5px solid #16171b;border-radius:50%;margin:0 auto 14px;"></div>
+            <div style="font-size:12px;letter-spacing:.16em;color:#54534e;">80 CM</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:clamp(110px,13vw,180px);height:clamp(110px,13vw,180px);border:1.5px solid #16171b;border-radius:50%;margin:0 auto 14px;"></div>
+            <div style="font-size:12px;letter-spacing:.16em;color:#54534e;">100 CM</div>
+          </div>
+        </div>
+        <p style="font-size:13px;letter-spacing:.04em;color:#9a988f;margin-top:30px;">Édition limitée — 50 exemplaires par taille</p>
+      </div>
+
+      <!-- Phase 2: quote -->
+      <div class="design-phase" id="dp2">
+        <p style="font-size:clamp(18px,1.6vw,22px);font-weight:300;color:#2c2c29;line-height:1.65;max-width:420px;">Une terrasse pensée dans le moindre détail. Une piscine intégrée avec soin. Et ce mur, resté nu — l'absence qu'on remarque seulement après coup.</p>
+        <p style="font-size:clamp(18px,1.6vw,22px);font-weight:500;color:#16171b;line-height:1.5;max-width:420px;margin-top:24px;">KROMA est ce dernier geste.</p>
+      </div>
+    </div>
+
+    <!-- Right panel: image -->
+    <div id="design-right">
+      <img id="design-img" src="Images/BAY_XL.png" alt="KROMA Design">
+    </div>
+  </div>
+</div>
+
+<!-- ============ MATIÈRE ============ -->
+<section id="matiere" style="padding:160px 40px;background:#16171b;color:#f7f6f4;">
+  <div style="max-width:1240px;margin:0 auto;">
+    <div class="eyebrow eyebrow-dark fade-up">02 — Matière</div>
+    <div class="cr-line" style="margin-bottom:28px;">
+      <h2 class="cr-inner" style="font-size:clamp(48px,7vw,100px);font-weight:600;letter-spacing:-.01em;line-height:1;">À l'épreuve des éléments.</h2>
+    </div>
+    <p class="fade-up" style="font-size:clamp(19px,2vw,24px);font-weight:300;color:rgba(247,246,244,.7);max-width:640px;margin-bottom:80px;">Aluminium, sublimé par une impression haute définition — une matière qui ne cède rien au temps.</p>
+
+    <div id="matiere-video">
+      <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'SFMono-Regular',Menlo,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#6a6b70;text-align:center;padding:0 24px;">[ vidéo en boucle — gros plan · eau perlant sur la surface aluminium ]</span>
+      <span style="position:absolute;top:22px;left:22px;display:flex;align-items:center;gap:9px;font-family:'SFMono-Regular',Menlo,monospace;font-size:11px;letter-spacing:.12em;color:#6a6b70;"><span style="width:7px;height:7px;border-radius:50%;background:#9a9b9f;display:inline-block;animation:pulse 2s ease-in-out infinite;"></span>LOOP</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(40px,7vw,120px);align-items:end;">
+      <p class="fade-up" style="font-size:clamp(18px,1.7vw,23px);font-weight:300;line-height:1.6;color:rgba(247,246,244,.86);">Chaque pièce KROMA prend forme sur aluminium — une matière conçue pour l'extérieur, résistante aux UV et à la pluie, facile d'entretien. Un guide accompagne chaque pièce, pour que l'éclat traverse les saisons.</p>
+      <div class="fade-up">
+        <p style="font-size:clamp(20px,1.9vw,26px);font-weight:500;line-height:1.3;margin-bottom:10px;">Née à Bruxelles.<br>Façonnée en Europe.</p>
+        <p style="font-size:14px;font-weight:300;color:rgba(247,246,244,.5);">Au plus près — jamais à l'autre bout du monde.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLLECTION — HORIZONTAL SCROLL ============ -->
+<div id="collection-pin">
+  <div id="collection-sticky">
+    <div id="collection-header">
+      <div>
+        <div class="eyebrow fade-up" style="margin-bottom:20px;">03 — La Collection</div>
+        <div style="overflow:hidden;">
+          <h2 class="cr-inner" style="font-size:clamp(44px,6vw,82px);font-weight:600;letter-spacing:-.01em;line-height:1.02;">Trois pièces.<br>Un commencement.</h2>
+        </div>
+      </div>
+      <p class="fade-up" style="font-size:clamp(17px,1.6vw,21px);font-weight:300;color:#54534e;max-width:380px;padding-bottom:8px;">Le point de départ d'une collection appelée à s'étendre.</p>
+    </div>
+
+    <div id="collection-track-wrap">
+      <div id="collection-track">
+        <div class="coll-card">
+          <div class="coll-card-img"><span>[ visuel — SOLAR ]</span></div>
+          <h3>SOLAR</h3>
+          <p>La chaleur en mouvement.</p>
+        </div>
+        <div class="coll-card">
+          <div class="coll-card-img"><span>[ visuel — MAR ]</span></div>
+          <h3>MAR</h3>
+          <p>La profondeur en suspens.</p>
+        </div>
+        <div class="coll-card">
+          <div class="coll-card-img"><span>[ visuel — TIERRA ]</span></div>
+          <h3>TIERRA</h3>
+          <p>La matière à l'état brut.</p>
+        </div>
+      </div>
+    </div>
+    <div id="coll-progress"><div id="coll-bar"></div></div>
+  </div>
+</div>
+
+<!-- ============ PROS ============ -->
+<section id="pros" style="padding:150px 40px;background:#ecebe7;">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(50px,8vw,140px);align-items:start;">
+    <div>
+      <div class="eyebrow fade-up">04 — Pour les professionnels</div>
+      <div class="cr-line" style="margin-bottom:36px;">
+        <h2 class="cr-inner" style="font-size:clamp(36px,4.4vw,58px);font-weight:600;letter-spacing:-.01em;line-height:1.06;">Architectes, paysagistes, agenceurs d'extérieur.</h2>
+      </div>
+      <button class="kf-toggle kf-submit" id="pro-toggle" type="button">Demander un devis professionnel →</button>
+    </div>
+    <div class="fade-up">
+      <div style="font-size:clamp(18px,1.7vw,22px);font-weight:300;line-height:1.6;color:#2c2c29;margin-bottom:50px;">
+        <p style="margin-bottom:24px;">Un partenariat simple : un tarif professionnel qui progresse avec le volume, sans stock à gérer de votre côté.</p>
+        <p>Un échantillon matière est disponible sur demande, pour que votre client valide le rendu avant l'engagement.</p>
+      </div>
+      <form id="pro-form" class="kf-hidden" style="max-width:460px;">
+        <div class="kf-field"><label for="pro-nom">Nom</label><input type="text" id="pro-nom" name="nom" required></div>
+        <div class="kf-field"><label for="pro-societe">Société / cabinet</label><input type="text" id="pro-societe" name="societe"></div>
+        <div class="kf-field"><label for="pro-email">Email</label><input type="email" id="pro-email" name="email" required></div>
+        <div class="kf-field"><label for="pro-tel">Téléphone</label><input type="tel" id="pro-tel" name="tel"></div>
+        <div class="kf-field"><label for="pro-message">Votre projet</label><textarea id="pro-message" name="message" rows="3"></textarea></div>
+        <button type="submit" class="kf-submit">Envoyer ma demande</button>
+        <p class="kf-helper">Votre client mail va s'ouvrir avec les informations pré-remplies, à destination de laurent@kroma-art.com.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTICULIERS ============ -->
+<section id="particuliers" style="padding:150px 40px;background:#f7f6f4;">
+  <div style="max-width:840px;margin:0 auto;text-align:center;">
+    <div class="eyebrow fade-up" style="text-align:center;">05 — Pour les particuliers</div>
+    <div class="cr-line" style="margin-bottom:30px;">
+      <h2 class="cr-inner" style="font-size:clamp(40px,5.4vw,74px);font-weight:600;letter-spacing:-.01em;line-height:1.04;">KROMA chez vous.<br>Bientôt.</h2>
+    </div>
+    <p class="fade-up" style="font-size:clamp(19px,2vw,24px);font-weight:300;line-height:1.55;color:#54534e;max-width:600px;margin:0 auto 50px;">La vente directe aux particuliers ouvre prochainement. Inscrivez-vous sur la liste prioritaire — et soyez parmi les premiers informés du lancement.</p>
+    <form id="particulier-form" class="fade-up" style="display:flex;flex-direction:column;align-items:center;gap:18px;max-width:420px;margin:0 auto;">
+      <div class="kf-field" style="width:100%;"><label for="particulier-email">Email</label><input type="email" id="particulier-email" name="email" required style="text-align:center;"></div>
+      <button type="submit" class="kf-submit">Rejoindre la liste prioritaire</button>
+      <p class="kf-helper">Votre client mail va s'ouvrir avec votre email pré-rempli, à destination de contact@kroma-art.com.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ EXPÉRIENCE ============ -->
+<section style="padding:160px 40px;background:#16171b;color:#f7f6f4;">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(50px,8vw,140px);align-items:center;">
+    <div>
+      <div class="eyebrow eyebrow-dark fade-up">L'expérience KROMA</div>
+      <div class="cr-line">
+        <h2 class="cr-inner" style="font-size:clamp(40px,5vw,68px);font-weight:600;letter-spacing:-.01em;line-height:1.04;">Chaque pièce,<br>une histoire.</h2>
+      </div>
+    </div>
+    <p class="fade-up" style="font-size:clamp(18px,1.8vw,23px);font-weight:300;line-height:1.6;color:rgba(247,246,244,.84);">À la réception de votre pièce, un certificat d'authenticité numéroté vous est envoyé séparément — avec un guide d'entretien et un mot de remerciement. Une attention pensée pour marquer un commencement, pas seulement clore une commande.</p>
+  </div>
+</section>
+
+<!-- ============ FONDATEUR ============ -->
+<section style="padding:160px 40px;background:#f7f6f4;">
+  <div style="max-width:880px;margin:0 auto;">
+    <div class="eyebrow fade-up">Le fondateur</div>
+    <div class="cr-line" style="margin-bottom:44px;">
+      <h2 class="cr-inner" style="font-size:clamp(40px,5.4vw,72px);font-weight:600;letter-spacing:-.01em;line-height:1.02;">Une signature.</h2>
+    </div>
+    <p class="fade-up" style="font-size:clamp(20px,2.1vw,28px);font-weight:300;line-height:1.55;color:#2c2c29;">Avant KROMA, il y a eu dix ans de production audiovisuelle et de design — et une certitude : une idée ne vaut que si on sait la concrétiser. Cette exigence a porté Mira Visual Creations, qui a trouvé sa place jusque chez Roche Bobois. KROMA est née de la même passion — pour l'art, pour l'architecture — avec l'envie d'offrir aux extérieurs ce qu'ils méritent : des pièces pensées pour durer.</p>
+  </div>
+</section>
+
+<!-- ============ CLÔTURE ============ -->
+<section id="final-cta" style="padding:150px 40px;background:#ecebe7;">
+  <div style="max-width:760px;margin:0 auto;text-align:center;">
+    <div class="cr-line" style="margin-bottom:22px;">
+      <h2 class="cr-inner" style="font-size:clamp(38px,4.6vw,60px);font-weight:600;letter-spacing:-.01em;line-height:1.06;">Parlons-en.</h2>
+    </div>
+    <p class="fade-up" style="font-size:clamp(18px,1.8vw,22px);font-weight:300;color:#54534e;margin-bottom:54px;">Professionnel ou particulier — la conversation commence ici.</p>
+    <div class="fade-up" style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
+      <a href="#pros" class="kf-submit">Demander un devis professionnel →</a>
+      <a href="#particuliers" class="kf-submit kf-outline">Rejoindre la liste prioritaire</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact" style="background:#0f1013;color:#f7f6f4;padding:120px 40px 48px;">
+  <div style="max-width:1240px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(50px,8vw,120px);padding-bottom:90px;border-bottom:1px solid rgba(255,255,255,.1);">
+      <div>
+        <div style="font-size:30px;font-weight:600;letter-spacing:.3em;margin-bottom:30px;padding-left:.3em;font-family:'ProfaCondensed','Profa',sans-serif;">KROMA</div>
+        <p style="font-size:16px;font-weight:300;line-height:1.6;color:rgba(247,246,244,.6);max-width:380px;">L'art mural, pensé pour l'extérieur. Née à Bruxelles. Façonnée en Europe.</p>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,246,244,.45);margin-bottom:26px;">Contact</div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,246,244,.4);width:90px;">Particulier</span>
+            <a href="#particuliers" style="font-size:15px;color:#f7f6f4;text-decoration:none;border-bottom:1px solid rgba(247,246,244,.3);padding-bottom:2px;">Rejoindre la liste prioritaire</a>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,246,244,.4);width:90px;">Professionnel</span>
+            <a href="#pros" style="font-size:15px;color:#f7f6f4;text-decoration:none;border-bottom:1px solid rgba(247,246,244,.3);padding-bottom:2px;">Demander un devis</a>
+          </div>
+        </div>
+        <div style="display:flex;gap:26px;margin-top:34px;">
+          <a href="#" style="font-size:13px;letter-spacing:.04em;color:rgba(247,246,244,.6);text-decoration:none;">Instagram</a>
+          <a href="#" style="font-size:13px;letter-spacing:.04em;color:rgba(247,246,244,.6);text-decoration:none;">Pinterest</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap;padding-top:34px;">
+      <div style="display:flex;gap:28px;flex-wrap:wrap;">
+        <a href="#" style="font-size:12.5px;color:rgba(247,246,244,.5);text-decoration:none;">Mentions légales</a>
+        <a href="#" style="font-size:12.5px;color:rgba(247,246,244,.5);text-decoration:none;">Politique de confidentialité</a>
+      </div>
+      <span style="font-size:12.5px;color:rgba(247,246,244,.4);">© KROMA 2026</span>
+    </div>
+    <p style="font-size:11.5px;line-height:1.5;color:rgba(247,246,244,.32);max-width:560px;margin-top:30px;">En soumettant le formulaire, vous consentez au traitement de vos données pour recevoir les informations KROMA, conformément au RGPD. Consentement révocable à tout moment.</p>
+  </div>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────
+// UTILITIES
+// ─────────────────────────────────────────────
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+const lerp = (a, b, t) => a + (b - a) * t;
+const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+const progress = (v, start, end) => clamp((v - start) / (end - start), 0, 1);
+
+// ─────────────────────────────────────────────
+// HERO PARALLAX
+// ─────────────────────────────────────────────
+const heroImg = $('#hero-img');
+
+// ─────────────────────────────────────────────
+// CLIP-PATH REVEALS
+// ─────────────────────────────────────────────
+const crObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const inners = $$('.cr-inner', entry.target.closest('section, div'));
+      inners.forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 80);
+      });
+      // Also trigger h2 inside design left
+      $$('.cr-inner').forEach((el, i) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 0.9) {
+          setTimeout(() => el.classList.add('visible'), i * 60);
+        }
+      });
+      crObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+$$('.cr-line').forEach(el => crObserver.observe(el));
+
+// Trigger design h2 separately
+const designH2 = $('#design-h2');
+if (designH2) {
+  setTimeout(() => designH2.classList.add('visible'), 400);
+}
+
+// ─────────────────────────────────────────────
+// FADE-UP REVEALS
+// ─────────────────────────────────────────────
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+$$('.fade-up').forEach(el => fadeObserver.observe(el));
+
+// ─────────────────────────────────────────────
+// DESIGN SECTION — sticky phase transitions
+// ─────────────────────────────────────────────
+const designPin = $('#design-pin');
+const designImg = $('#design-img');
+const phases = [
+  { el: $('#dp0'), start: 0, end: 0.38 },
+  { el: $('#dp1'), start: 0.35, end: 0.68 },
+  { el: $('#dp2'), start: 0.65, end: 1.0 },
+];
+
+// ─────────────────────────────────────────────
+// COLLECTION — horizontal scroll
+// ─────────────────────────────────────────────
+const collPin   = $('#collection-pin');
+const collTrack = $('#collection-track');
+const collBar   = $('#coll-bar');
+
+// ─────────────────────────────────────────────
+// NAV
+// ─────────────────────────────────────────────
+const nav       = $('#kroma-nav');
+const wordmark  = $('#kroma-wordmark');
+const navLinks  = $('#kroma-nav-links');
+const hero      = $('#hero');
+const spySects  = ['design', 'matiere', 'collection', 'pros', 'particuliers']
+  .map(id => document.getElementById(id)).filter(Boolean);
+
+function setNav(scrolled) {
+  if (scrolled) {
+    nav.style.background    = 'rgba(247,246,244,.9)';
+    nav.style.backdropFilter = 'saturate(180%) blur(18px)';
+    nav.style.webkitBackdropFilter = 'saturate(180%) blur(18px)';
+    nav.style.borderBottomColor = 'rgba(0,0,0,.07)';
+    nav.style.padding       = '18px 44px';
+    navLinks.style.opacity  = '1';
+    navLinks.style.pointerEvents = 'auto';
+  } else {
+    nav.style.background    = 'transparent';
+    nav.style.backdropFilter = 'none';
+    nav.style.webkitBackdropFilter = 'none';
+    nav.style.borderBottomColor = 'transparent';
+    nav.style.padding       = '28px 44px';
+    navLinks.style.opacity  = '0';
+    navLinks.style.pointerEvents = 'none';
+  }
+}
+
+// ─────────────────────────────────────────────
+// MAIN SCROLL LOOP
+// ─────────────────────────────────────────────
+function onScroll() {
+  const sy  = window.scrollY;
+  const vh  = window.innerHeight;
+
+  // Hero parallax
+  if (heroImg) {
+    heroImg.style.transform = `translateY(${sy * 0.35}px)`;
+  }
+
+  // Nav
+  const heroBottom = hero.getBoundingClientRect().bottom;
+  setNav(heroBottom < vh * 0.2);
+
+  // Scroll-spy
+  const mid = vh * 0.45;
+  let active = null;
+  spySects.forEach(s => {
+    const r = s.getBoundingClientRect();
+    if (r.top <= mid && r.bottom >= mid) active = s.id;
+  });
+  $$('a[data-spy]', navLinks).forEach(a => {
+    const on = a.dataset.spy === active;
+    a.classList.toggle('active', on);
+    a.style.opacity = on ? '1' : '0.6';
+  });
+
+  // Design sticky phases
+  if (designPin) {
+    const dr = designPin.getBoundingClientRect();
+    const designTotal = designPin.offsetHeight - vh;
+    const dp = progress(-dr.top, 0, designTotal);
+
+    phases.forEach(({ el, start, end }) => {
+      if (!el) return;
+      const p = progress(dp, start, end);
+      const entering = dp >= start - 0.05 && dp <= end + 0.05;
+      el.style.opacity = entering ? Math.min(1, p * 5, (1 - p) * 5 + (end === 1 ? 99 : 0)) : '0';
+      el.style.transform = `translateY(${entering ? lerp(16, 0, Math.min(1, p * 4)) : 16}px)`;
+    });
+    // Last phase stays visible
+    const last = phases[phases.length - 1];
+    if (dp >= last.start) {
+      last.el.style.opacity = '1';
+      last.el.style.transform = 'translateY(0)';
+    }
+
+    // Design image parallax
+    if (designImg) {
+      designImg.style.transform = `translateY(${dp * -40}px)`;
+    }
+  }
+
+  // Collection horizontal scroll
+  if (collPin && collTrack) {
+    const cr = collPin.getBoundingClientRect();
+    const collTotal = collPin.offsetHeight - vh;
+    const cp = progress(-cr.top, 0, collTotal);
+    const maxShift = collTrack.scrollWidth - collTrack.parentElement.offsetWidth;
+    const shift = cp * maxShift;
+    collTrack.style.transform = `translateX(-${shift}px)`;
+    if (collBar) collBar.style.width = `${cp * 100}%`;
+  }
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+// ─────────────────────────────────────────────
+// FORMS
+// ─────────────────────────────────────────────
+$('#pro-toggle').addEventListener('click', () => {
+  $('#pro-form').classList.toggle('kf-hidden');
+});
+
+$('#pro-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const nom     = $('#pro-nom').value;
+  const societe = $('#pro-societe').value;
+  const email   = $('#pro-email').value;
+  const tel     = $('#pro-tel').value;
+  const message = $('#pro-message').value;
+  const body    = `Nom: ${nom}\nSociété: ${societe}\nEmail: ${email}\nTéléphone: ${tel}\n\nProjet:\n${message}`;
+  window.location.href = `mailto:laurent@kroma-art.com?subject=${encodeURIComponent('Demande de devis professionnel — KROMA')}&body=${encodeURIComponent(body)}`;
+});
+
+$('#particulier-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const email = $('#particulier-email').value;
+  window.location.href = `mailto:contact@kroma-art.com?subject=${encodeURIComponent('Liste prioritaire — KROMA')}&body=${encodeURIComponent(`Email: ${email}`)}`;
+});
+</script>
+
+</body>
+</html>
