@@ -68,38 +68,52 @@
 
   /* ── CIRCLES ANIMATION ── */
   #circles-pin { height:300vh; position:relative; }
-  #circles-sticky {
+  .circles-sticky {
     position:sticky; top:0; height:100vh; overflow:hidden;
-    background:#f0efec;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:#f5f4f1;
+    display:flex; flex-direction:column;
+    padding: clamp(50px,7vw,90px) var(--pad) 0;
   }
-  #circles-stage { position:relative; display:flex; align-items:center; justify-content:center; }
+  #circles-text {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:clamp(32px,6vw,100px); align-items:end;
+    flex-shrink:0;
+  }
+  #circles-text .c-edition {
+    font-size:11px; letter-spacing:.16em; color:var(--ink-35);
+    margin-top:20px; font-weight:400;
+  }
+  #circles-text .c-edition strong { font-weight:500; color:var(--ink-60); }
+  #circles-stage {
+    position:relative; flex:1;
+    display:flex; align-items:center; justify-content:center;
+    min-height:0;
+  }
+  /* inner wrapper — sized to largest disc, bottom-aligned in stage */
+  #circles-inner {
+    position:relative;
+    width:clamp(190px,25vw,320px);
+    height:clamp(190px,25vw,320px);
+    margin-bottom: clamp(48px,6vw,80px);
+  }
   .c-disc {
     position:absolute;
-    width:clamp(200px,26vw,320px);
-    height:clamp(200px,26vw,320px);
-    border-radius:50%;
-    overflow:hidden;
-    will-change:transform,opacity;
+    bottom:0; left:50%;
+    border-radius:50%; overflow:hidden; will-change:transform,opacity;
   }
   .c-disc img {
     width:100%; height:100%;
-    object-fit:cover; object-position:center;
+    object-fit:cover;
     border-radius:50%;
-    pointer-events:none;
+    display:block; pointer-events:none;
   }
-  #c-left  { opacity:0; }
-  #c-right { opacity:0; }
+  #c-left  { width:clamp(100px,14vw,185px); height:clamp(100px,14vw,185px); opacity:0; }
+  #c-center { width:clamp(145px,19vw,250px); height:clamp(145px,19vw,250px); }
+  #c-right  { width:clamp(190px,25vw,320px); height:clamp(190px,25vw,320px); opacity:0; }
   .c-label {
-    position:absolute; bottom:-30px; left:50%; transform:translateX(-50%);
+    position:absolute; bottom:-26px; left:0; right:0; text-align:center;
     font-size:10px; letter-spacing:.22em; color:var(--ink-60);
-    white-space:nowrap; opacity:0;
-    transition:opacity .4s ease;
-  }
-  #circles-footer {
-    position:absolute; bottom:clamp(40px,5vw,64px);
-    font-size:10px; letter-spacing:.16em; color:var(--ink-35); text-align:center;
-    opacity:0; transition:opacity .5s ease;
+    white-space:nowrap; opacity:0; transition:opacity .4s ease;
   }
 
   /* ── REVEALS ── */
@@ -254,51 +268,35 @@
 
 <hr class="rule" style="margin:0 var(--pad);">
 
-<!-- DESIGN -->
-<section class="section" id="design">
-  <div class="container">
-
-    <div class="stagger" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,130px);align-items:end;margin-bottom:clamp(50px,7vw,90px);">
+<!-- DESIGN + CIRCLES ANIMATION -->
+<div id="circles-pin">
+  <div id="design" class="circles-sticky">
+    <div id="circles-text">
       <div>
         <p class="eyebrow">01 — Design</p>
         <h2>Une signature.<br>Trois échelles.</h2>
+        <p class="c-edition"><strong>Édition limitée</strong> — 50 exemplaires par taille</p>
       </div>
       <p class="text-body" style="padding-bottom:4px;">Le cercle ouvre la collection — une forme qui ne s'impose pas, elle compose avec l'architecture. 60, 80, 100 cm : une présence pensée pour habiter votre espace.</p>
     </div>
-
-  </div>
-</section>
-
-<!-- CIRCLES ANIMATION -->
-<div id="circles-pin">
-  <div id="circles-sticky">
-    <div id="circles-stage" style="width:clamp(620px,80vw,1000px);height:clamp(200px,26vw,320px);">
-      <div class="c-disc" id="c-left">
-        <img src="Images/BAY_XL.png" style="object-position:20% center;">
-        <span class="c-label">60 CM</span>
-      </div>
-      <div class="c-disc" id="c-center">
-        <img src="Images/BAY_XL.png" style="object-position:50% center;">
-        <span class="c-label">80 CM</span>
-      </div>
-      <div class="c-disc" id="c-right">
-        <img src="Images/BAY_XL.png" style="object-position:80% center;">
-        <span class="c-label">100 CM</span>
+    <div id="circles-stage">
+      <div id="circles-inner">
+        <div class="c-disc" id="c-left">
+          <img src="Images/KROMA - 60cm.png">
+          <span class="c-label">60 cm</span>
+        </div>
+        <div class="c-disc" id="c-center">
+          <img src="Images/KROMA - 80cm.png">
+          <span class="c-label">80 cm</span>
+        </div>
+        <div class="c-disc" id="c-right">
+          <img src="Images/KROMA - 100cm.png">
+          <span class="c-label">100 cm</span>
+        </div>
       </div>
     </div>
-    <p id="circles-footer">Édition limitée — 50 exemplaires par taille</p>
   </div>
 </div>
-
-<!-- DESIGN — texte bas -->
-<section class="section">
-  <div class="container">
-    <div class="stagger" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,130px);">
-      <p class="text-lead">Une terrasse pensée dans le moindre détail. Une piscine intégrée avec soin. Et ce mur, resté nu — l'absence qu'on remarque seulement après coup.</p>
-      <p class="text-lead" style="font-weight:500;color:var(--ink);">KROMA est ce dernier geste.</p>
-    </div>
-  </div>
-</section>
 
 <hr class="rule" style="margin:0 var(--pad);">
 
@@ -507,21 +505,61 @@ const circlesPin  = document.getElementById('circles-pin');
 const cLeft       = document.getElementById('c-left');
 const cCenter     = document.getElementById('c-center');
 const cRight      = document.getElementById('c-right');
-const circlesFooter = document.getElementById('circles-footer');
 const spySections = ['design','matiere','collection','pros','particuliers']
   .map(id => document.getElementById(id)).filter(Boolean);
+
+// ── HERO SCROLL LOCK ──────────────────────────
+let heroProgress = 0;      // 0 → 1: fade progress
+let heroUnlocked = false;  // true once artwork is fully visible
+
+function applyHeroFade(p) {
+  heroProgress = Math.min(1, Math.max(0, p));
+  if (heroArt) heroArt.style.opacity = heroProgress;
+  if (heroProgress >= 1 && !heroUnlocked) unlockScroll();
+}
+
+function unlockScroll() {
+  heroUnlocked = true;
+  document.removeEventListener('wheel', onWheel);
+  document.removeEventListener('touchstart', onTouchStart);
+  document.removeEventListener('touchmove', onTouchMove);
+}
+
+const WHEEL_SENSITIVITY = 0.0028; // tune: smaller = more scroll needed
+let touchStartY = 0;
+
+function onWheel(e) {
+  if (heroUnlocked) return;
+  e.preventDefault();
+  applyHeroFade(heroProgress + e.deltaY * WHEEL_SENSITIVITY);
+}
+
+function onTouchStart(e) {
+  if (heroUnlocked) return;
+  touchStartY = e.touches[0].clientY;
+}
+
+function onTouchMove(e) {
+  if (heroUnlocked) return;
+  e.preventDefault();
+  const dy = touchStartY - e.touches[0].clientY;
+  applyHeroFade(heroProgress + dy * 0.004);
+  touchStartY = e.touches[0].clientY;
+}
+
+document.addEventListener('wheel', onWheel, { passive: false });
+document.addEventListener('touchstart', onTouchStart, { passive: true });
+document.addEventListener('touchmove', onTouchMove, { passive: false });
 
 // ── SCROLL HANDLER ────────────────────────────
 function onScroll() {
   const sy = window.scrollY;
   const vh = window.innerHeight;
 
-  // Hero: parallax + cross-fade
+  // Hero: parallax only (fade is driven by wheel lock above)
   const heroParallax = `translateY(${sy * 0.3}px)`;
   if (heroClean) heroClean.style.transform = heroParallax;
   if (heroArt)   heroArt.style.transform   = heroParallax;
-  const fadeP = Math.min(1, sy / (vh * 0.22));
-  if (heroArt) heroArt.style.opacity = fadeP;
 
   // Nav state
   const heroBottom = hero ? hero.getBoundingClientRect().bottom : -1;
@@ -540,23 +578,27 @@ function onScroll() {
 
   // Circles fan-out animation
   if (circlesPin && cLeft && cRight) {
-    const cr  = circlesPin.getBoundingClientRect();
+    const cr    = circlesPin.getBoundingClientRect();
     const total = circlesPin.offsetHeight - vh;
-    const p   = Math.max(0, Math.min(1, -cr.top / total));
+    const p     = Math.max(0, Math.min(1, -cr.top / total));
+    const fanP  = p < 0.5 ? p * 2 : 1;
 
-    const discW  = cLeft.offsetWidth;
-    const spread = discW * 1.18;
-    const fanP   = p < 0.5 ? p * 2 : 1; // ease in first half, hold
+    // spread: center-to-center distance so discs sit just touching
+    const w60  = cLeft.offsetWidth;
+    const w80  = cCenter.offsetWidth;
+    const w100 = cRight.offsetWidth;
+    const spreadLeft  = (w80 / 2 + w60  / 2) * 1.1;
+    const spreadRight = (w80 / 2 + w100 / 2) * 1.1;
 
-    cLeft.style.transform  = `translateX(${-spread * fanP}px)`;
-    cRight.style.transform = `translateX(${spread * fanP}px)`;
+    // all discs: left:50% → need translateX(-50%) as base + fan offset
+    cLeft.style.transform  = `translateX(calc(-50% + ${-spreadLeft  * fanP}px))`;
+    cCenter.style.transform = `translateX(-50%)`;
+    cRight.style.transform = `translateX(calc(-50% + ${spreadRight * fanP}px))`;
     cLeft.style.opacity    = Math.min(1, p * 5);
     cRight.style.opacity   = Math.min(1, p * 5);
 
-    // labels + footer appear once spread
     const showExtra = fanP > 0.55;
     document.querySelectorAll('.c-label').forEach(l => l.style.opacity = showExtra ? '1' : '0');
-    if (circlesFooter) circlesFooter.style.opacity = showExtra ? '1' : '0';
   }
 }
 
