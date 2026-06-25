@@ -6,235 +6,216 @@
 <title>KROMA — Outdoor Art Gallery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
 <style>
-  @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
-  @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap;}
-  @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Medium.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap;}
-  @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap;}
-  @font-face{font-family:'ProfaCondensed';src:url('Fonts/profa-font-family/ProfaTrial-SemiBoldCondensed.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap;}
-  @font-face{font-family:'ProfaCondensed';src:url('Fonts/profa-font-family/ProfaTrial-BoldCondensed.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
+@font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Light.ttf') format('truetype');font-weight:300;font-display:swap;}
+@font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Regular.ttf') format('truetype');font-weight:400;font-display:swap;}
+@font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Medium.ttf') format('truetype');font-weight:500;font-display:swap;}
+@font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap;}
 
-  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { background:#f5f4f1; font-family:'Inter','Helvetica Neue',sans-serif; color:#1a1a1a; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
-  ::selection { background:#1a1a1a; color:#f5f4f1; }
-  img { display:block; max-width:100%; }
-  a { cursor:pointer; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:auto;}
+body{background:#f5f4f1;font-family:'Inter','Helvetica Neue',sans-serif;color:#181818;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+::selection{background:#181818;color:#f5f4f1;}
+img{display:block;max-width:100%;}
+a{cursor:pointer;}
 
-  /* ── TOKENS ── */
-  :root {
-    --ink: #1a1a1a;
-    --ink-60: rgba(26,26,26,.6);
-    --ink-35: rgba(26,26,26,.35);
-    --cream: #f5f4f1;
-    --stone: #eceae5;
-    --dark: #141416;
-    --mid: rgba(26,26,26,.08);
-    --pad: clamp(28px, 5vw, 80px);
-  }
+:root{
+  --cream:#f5f4f1;
+  --stone:#eceae5;
+  --dark:#0f0f11;
+  --ink:#181818;
+  --ink-60:rgba(24,24,24,.6);
+  --ink-30:rgba(24,24,24,.3);
+  --ink-12:rgba(24,24,24,.12);
+  --pad:clamp(24px,5vw,80px);
+}
 
-  /* ── NAV ── */
-  #nav {
-    position: fixed; top:0; left:0; right:0; z-index:200;
-    display: grid; grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    padding: 26px var(--pad);
-    transition: background .5s ease, padding .4s ease, border-color .4s ease;
-    border-bottom: 1px solid transparent;
-  }
-  #nav.scrolled {
-    background: rgba(245,244,241,.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom-color: var(--mid);
-    padding-top: 18px; padding-bottom: 18px;
-  }
-  #nav-logo { font-family:'Profa',sans-serif; font-size:22px; font-weight:500; letter-spacing:.32em; color:var(--ink); text-decoration:none; }
-  #nav-center { font-family:'Profa',sans-serif; font-size:20px; letter-spacing:.26em; text-transform:uppercase; color:var(--ink-60); white-space:nowrap; }
-  #nav-links { display:flex; gap:30px; justify-content:flex-end; opacity:0; pointer-events:none; transition:opacity .4s ease; }
-  #nav.scrolled #nav-links { opacity:1; pointer-events:auto; }
-  #nav-links a { font-size:11px; letter-spacing:.06em; color:var(--ink-60); text-decoration:none; transition:color .25s; }
-  #nav-links a:hover, #nav-links a.active { color:var(--ink); }
+/* ── NAV ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:clamp(18px,2.5vw,30px) var(--pad);
+  transition:background .5s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+#nav.scrolled{
+  background:rgba(245,244,241,.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom-color:var(--ink-12);
+}
+#nav-logo{font-family:'Profa',sans-serif;font-size:clamp(14px,1.5vw,22px);font-weight:500;letter-spacing:.3em;color:var(--ink);text-decoration:none;}
+#nav-center{font-family:'Profa',sans-serif;font-size:clamp(10px,1.1vw,17px);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-60);}
+#nav-links{display:flex;gap:clamp(18px,2.5vw,36px);opacity:0;pointer-events:none;transition:opacity .4s;}
+#nav.scrolled #nav-links{opacity:1;pointer-events:auto;}
+#nav-links a{font-size:13px;font-weight:400;color:var(--ink-60);text-decoration:none;letter-spacing:.01em;transition:color .2s;}
+#nav-links a:hover,#nav-links a.active{color:var(--ink);}
 
-  /* ── HERO ── */
-  #hero { position:relative; height:100vh; overflow:hidden; }
-  .hero-layer {
-    position:absolute; inset:0;
-    width:100%; height:115%;
-    object-fit:cover; object-position:center 30%;
-    will-change:transform;
-  }
-  #hero-clean { animation: heroIn 1.8s cubic-bezier(.16,1,.3,1) both; }
-  #hero-art   { opacity:0; animation: heroIn 1.8s cubic-bezier(.16,1,.3,1) both; }
-  @keyframes heroIn { from { transform:scale(1.06); } to { transform:scale(1); } }
+/* ── HERO ── */
+#hero{position:relative;height:100vh;overflow:hidden;}
+.hero-layer{
+  position:absolute;inset:0;
+  width:100%;height:115%;
+  object-fit:cover;object-position:center 30%;
+  will-change:transform;
+}
+#hero-clean{animation:heroIn 1.8s cubic-bezier(.16,1,.3,1) both;}
+#hero-art{opacity:0;animation:heroIn 1.8s cubic-bezier(.16,1,.3,1) both;}
+@keyframes heroIn{from{transform:scale(1.06);}to{transform:scale(1);}}
 
-  /* ── CIRCLES ANIMATION ── */
-  #circles-pin { height:300vh; position:relative; }
-  .circles-sticky {
-    position:sticky; top:0; height:100vh; overflow:hidden;
-    background:#f5f4f1;
-    display:flex; flex-direction:column;
-    padding: clamp(50px,7vw,90px) var(--pad) 0;
-  }
-  #circles-text {
-    max-width:1200px; margin:0 auto; width:100%;
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:clamp(32px,6vw,100px); align-items:end;
-    flex-shrink:0;
-  }
-  #circles-text .c-edition {
-    font-size:11px; letter-spacing:.16em; color:var(--ink-35);
-    margin-top:20px; font-weight:400;
-  }
-  #circles-text .c-edition strong { font-weight:500; color:var(--ink-60); }
-  #circles-stage {
-    position:relative; flex:1;
-    display:flex; align-items:center; justify-content:center;
-    min-height:0;
-  }
-  /* inner wrapper — sized to largest disc, bottom-aligned in stage */
-  #circles-inner {
-    position:relative;
-    width:clamp(190px,25vw,320px);
-    height:clamp(190px,25vw,320px);
-    margin-bottom: clamp(48px,6vw,80px);
-  }
-  .c-disc {
-    position:absolute;
-    bottom:0; left:50%;
-    border-radius:50%; overflow:hidden; will-change:transform,opacity;
-  }
-  .c-disc img {
-    width:100%; height:100%;
-    object-fit:cover;
-    border-radius:50%;
-    display:block; pointer-events:none;
-  }
-  #c-left  { width:clamp(100px,14vw,185px); height:clamp(100px,14vw,185px); opacity:0; }
-  #c-center { width:clamp(145px,19vw,250px); height:clamp(145px,19vw,250px); }
-  #c-right  { width:clamp(190px,25vw,320px); height:clamp(190px,25vw,320px); opacity:0; }
-  .c-label {
-    position:absolute; bottom:-26px; left:0; right:0; text-align:center;
-    font-size:10px; letter-spacing:.22em; color:var(--ink-60);
-    white-space:nowrap; opacity:0; transition:opacity .4s ease;
-  }
+/* ── LAYOUT ── */
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--pad);}
+.section-xl{padding:clamp(100px,13vw,180px) 0;}
+.section-stone{background:var(--stone);}
 
-  /* ── REVEALS ── */
-  .reveal {
-    opacity:0; transform:translateY(20px);
-    transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1);
-  }
-  .reveal.in { opacity:1; transform:none; }
-  .reveal-line { overflow:hidden; }
-  .reveal-line .inner {
-    display:block; transform:translateY(102%);
-    transition: transform 1s cubic-bezier(.16,1,.3,1);
-  }
-  .reveal-line.in .inner { transform:translateY(0); }
+/* ── TYPOGRAPHY ── */
+.label{
+  font-family:'Profa',sans-serif;
+  font-size:10px;font-weight:400;letter-spacing:.42em;
+  text-transform:uppercase;color:var(--ink-30);
+  display:block;margin-bottom:clamp(22px,3vw,36px);
+}
+.label-light{color:rgba(245,244,241,.28);}
+h2{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(38px,5.5vw,74px);
+  font-weight:700;line-height:1.04;letter-spacing:-.025em;
+}
+h3{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(20px,2.2vw,28px);
+  font-weight:600;line-height:1.2;letter-spacing:-.015em;
+}
+.body-text{font-size:clamp(15px,1.25vw,18px);font-weight:300;line-height:1.78;color:var(--ink-60);}
+.rule{border:none;border-top:1px solid var(--ink-12);margin:0;}
 
-  /* stagger siblings */
-  .stagger > * { opacity:0; transform:translateY(18px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
-  .stagger.in > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s; }
-  .stagger.in > *:nth-child(2) { opacity:1; transform:none; transition-delay:.1s; }
-  .stagger.in > *:nth-child(3) { opacity:1; transform:none; transition-delay:.2s; }
-  .stagger.in > *:nth-child(4) { opacity:1; transform:none; transition-delay:.3s; }
+/* ── REVEALS ── */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);}
+.fade-up.in{opacity:1;transform:none;}
+.d1{transition-delay:.12s;}
+.d2{transition-delay:.24s;}
+.d3{transition-delay:.36s;}
 
-  /* ── EYEBROW ── */
-  .eyebrow { font-family:'Profa',sans-serif; font-size:10px; letter-spacing:.36em; text-transform:uppercase; color:var(--ink-35); margin-bottom:22px; }
-  .eyebrow-light { color:rgba(245,244,241,.4); }
+/* ── INTRO / MANIFESTO ── */
+.manifesto-grid{display:grid;grid-template-columns:3fr 2fr;gap:clamp(40px,8vw,120px);align-items:end;}
 
-  /* ── SECTION BASE ── */
-  .section { padding: clamp(80px,10vw,160px) var(--pad); }
-  .section-dark { background:var(--dark); color:#f5f4f1; }
-  .section-stone { background:var(--stone); }
-  .container { max-width:1200px; margin:0 auto; }
-  .container-sm { max-width:780px; margin:0 auto; }
+/* ── CIRCLES ANIMATION ── */
+#circles-pin{height:300vh;position:relative;}
+.circles-sticky{
+  position:sticky;top:0;height:100vh;overflow:hidden;
+  background:var(--cream);
+  display:flex;flex-direction:column;
+  padding:clamp(50px,7vw,88px) var(--pad) 0;
+}
+#circles-text{
+  max-width:1200px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(32px,6vw,100px);align-items:end;
+  flex-shrink:0;
+}
+#circles-text .c-note{font-size:11px;letter-spacing:.14em;color:var(--ink-30);margin-top:18px;}
+#circles-text .c-note strong{font-weight:500;color:var(--ink-60);}
+#circles-stage{position:relative;flex:1;display:flex;align-items:center;justify-content:center;min-height:0;}
+#circles-inner{
+  position:relative;
+  width:clamp(190px,25vw,320px);height:clamp(190px,25vw,320px);
+  margin-bottom:clamp(48px,6vw,80px);
+}
+.c-disc{position:absolute;bottom:0;left:50%;border-radius:50%;overflow:hidden;will-change:transform,opacity;}
+.c-disc img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;pointer-events:none;}
+#c-left{width:clamp(100px,14vw,185px);height:clamp(100px,14vw,185px);opacity:0;}
+#c-center{width:clamp(145px,19vw,250px);height:clamp(145px,19vw,250px);}
+#c-right{width:clamp(190px,25vw,320px);height:clamp(190px,25vw,320px);opacity:0;}
+.c-label{
+  position:absolute;bottom:-26px;left:0;right:0;text-align:center;
+  font-size:10px;letter-spacing:.22em;color:var(--ink-60);
+  white-space:nowrap;opacity:0;transition:opacity .4s;
+}
 
-  /* ── TYPOGRAPHY ── */
-  h2 {
-    font-family:'Inter','Helvetica Neue',sans-serif;
-    font-size: clamp(34px, 4vw, 52px);
-    font-weight:600;
-    letter-spacing:-.01em;
-    line-height:1.08;
-  }
-  .text-body {
-    font-size: clamp(16px, 1.5vw, 19px);
-    font-weight:300;
-    line-height:1.7;
-    color:var(--ink-60);
-  }
-  .text-body-dark { color:rgba(245,244,241,.7); }
-  .text-lead {
-    font-size: clamp(18px,1.8vw,22px);
-    font-weight:300;
-    line-height:1.65;
-  }
+/* ── MATIÈRE ── */
+.matiere-intro{display:grid;grid-template-columns:3fr 2fr;gap:clamp(40px,8vw,120px);align-items:end;}
+.matiere-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--ink-12);
+  margin-top:clamp(60px,8vw,100px);
+}
+.stat-block{background:var(--cream);padding:clamp(28px,4vw,48px) clamp(20px,3vw,36px);}
+.stat-val{font-size:clamp(22px,2.8vw,36px);font-weight:600;letter-spacing:-.02em;margin-bottom:12px;}
+.stat-desc{font-size:14px;font-weight:300;line-height:1.65;color:var(--ink-60);}
 
-  /* ── DIVIDER ── */
-  .rule { border:none; border-top:1px solid var(--mid); margin:0; }
-  .rule-light { border-top-color:rgba(255,255,255,.1); }
+/* ── COLLECTION ── */
+.coll-header{display:grid;grid-template-columns:3fr 2fr;gap:clamp(40px,8vw,120px);align-items:end;margin-bottom:clamp(60px,8vw,100px);}
+.coll-pieces{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);}
+.piece-circle{width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;margin-bottom:clamp(20px,3vw,32px);}
+.piece-circle img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1);}
+.piece-circle:hover img{transform:scale(1.04);}
+.piece-label{font-family:'Profa',sans-serif;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--ink-30);margin-bottom:10px;}
+.piece-name{font-size:clamp(22px,2.5vw,34px);font-weight:700;letter-spacing:-.02em;margin-bottom:8px;}
+.piece-tag{font-size:15px;font-weight:300;color:var(--ink-60);font-style:italic;}
+.coll-bottom{
+  margin-top:clamp(60px,8vw,100px);
+  padding-top:clamp(28px,3.5vw,48px);
+  border-top:1px solid var(--ink-12);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;
+}
+.coll-note{font-size:12px;letter-spacing:.1em;color:var(--ink-30);}
 
-  /* ── DESIGN SECTION ── */
-  #design-image {
-    width:100%; aspect-ratio:16/9; overflow:hidden; position:relative;
-    margin-bottom: clamp(60px,8vw,120px);
-  }
-  #design-image img {
-    width:100%; height:115%; object-fit:cover; object-position:center top;
-    will-change:transform;
-  }
-  .design-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(40px,8vw,130px); align-items:start; }
-  .design-scales { display:flex; align-items:flex-end; gap:clamp(24px,4vw,56px); padding:clamp(40px,5vw,70px) 0; border-top:1px solid var(--mid); border-bottom:1px solid var(--mid); margin-top:clamp(40px,5vw,70px); }
-  .scale-item { text-align:center; }
-  .scale-circle { border:1.5px solid var(--ink); border-radius:50%; margin:0 auto 16px; }
-  .scale-label { font-size:10px; letter-spacing:.2em; color:var(--ink-60); }
+/* ── CONTACT ── */
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);
+  margin-top:clamp(60px,8vw,100px);
+  padding-top:clamp(40px,5vw,60px);
+  border-top:1px solid var(--ink-12);
+}
+.contact-type{font-family:'Profa',sans-serif;font-size:9px;letter-spacing:.36em;text-transform:uppercase;color:var(--ink-30);margin-bottom:clamp(14px,2vw,22px);}
+.contact-block h3{margin-bottom:clamp(10px,1.5vw,18px);}
+.contact-block .body-text{margin-bottom:clamp(24px,3vw,36px);}
+.kf-field{display:flex;flex-direction:column;gap:6px;margin-bottom:18px;}
+.kf-field label{font-family:'Profa',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-30);}
+.kf-field input{
+  font-family:'Inter',sans-serif;font-size:16px;font-weight:300;
+  color:var(--ink);background:transparent;border:none;
+  border-bottom:1px solid var(--ink-12);
+  padding:8px 0;outline:none;transition:border-color .2s;
+}
+.kf-field input:focus{border-bottom-color:var(--ink);}
+.cta-link{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:14px;font-weight:500;color:var(--ink);
+  text-decoration:none;border-bottom:1px solid var(--ink-12);
+  padding-bottom:5px;transition:gap .25s,border-color .25s;
+}
+.cta-link:hover{gap:18px;border-color:var(--ink);}
+.cta-btn{
+  font-family:'Inter',sans-serif;
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:14px;font-weight:500;color:var(--ink);
+  background:none;border:none;border-bottom:1px solid var(--ink-12);
+  padding:0 0 5px;cursor:pointer;
+  transition:gap .25s,border-color .25s;
+}
+.cta-btn:hover{gap:18px;border-color:var(--ink);}
 
-  /* ── MATIÈRE ── */
-  .matiere-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(40px,8vw,130px); align-items:center; margin-top:clamp(60px,8vw,100px); }
-  .matiere-tagline { font-size:clamp(22px,2.4vw,30px); font-weight:500; line-height:1.3; margin-bottom:12px; }
+/* ── FOUNDER ── */
+.founder-grid{display:grid;grid-template-columns:1fr 2fr;gap:clamp(40px,8vw,100px);align-items:center;}
+.founder-mark{
+  font-size:clamp(80px,14vw,180px);font-weight:800;
+  line-height:.9;letter-spacing:-.04em;
+  color:var(--ink-12);user-select:none;
+}
 
-  /* ── COLLECTION ── */
-  .collection-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,3vw,40px); margin-top:clamp(50px,6vw,80px); }
-  .coll-card-img {
-    width:100%; aspect-ratio:3/4;
-    background:var(--stone);
-    border-radius:2px;
-    overflow:hidden;
-    position:relative;
-    margin-bottom:20px;
-  }
-  .coll-card-img .placeholder {
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-35);
-    font-family:'SFMono-Regular',Menlo,monospace;
-  }
-  .coll-card h3 { font-family:'ProfaCondensed','Profa',sans-serif; font-size:clamp(22px,2vw,28px); font-weight:600; letter-spacing:.05em; margin-bottom:6px; }
-  .coll-card p { font-size:14px; font-weight:300; font-style:italic; color:var(--ink-60); }
-  .coll-footer { margin-top:clamp(50px,6vw,80px); border-top:1px solid var(--mid); padding-top:clamp(30px,4vw,50px); }
-
-  /* ── PROS ── */
-  .pros-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(40px,8vw,130px); align-items:start; }
-
-  /* ── FORMS ── */
-  .kf-field { display:flex; flex-direction:column; gap:7px; margin-bottom:22px; }
-  .kf-field label { font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-35); }
-  .kf-field input, .kf-field textarea { font-family:inherit; font-size:15px; font-weight:300; color:inherit; background:transparent; border:none; border-bottom:1px solid var(--mid); padding:8px 0; outline:none; transition:border-color .25s; resize:vertical; }
-  .kf-field input:focus, .kf-field textarea:focus { border-bottom-color:var(--ink); }
-  .kf-btn { display:inline-flex; align-items:center; gap:10px; font-family:inherit; font-size:13px; letter-spacing:.06em; color:#f5f4f1; background:var(--ink); border:none; text-decoration:none; padding:14px 28px; cursor:pointer; transition:opacity .25s; }
-  .kf-btn:hover { opacity:.8; }
-  .kf-btn-outline { background:transparent; color:var(--ink); border:1px solid var(--ink); }
-  .kf-btn-outline:hover { background:var(--ink); color:#f5f4f1; opacity:1; }
-  .kf-helper { font-size:11.5px; color:var(--ink-35); margin-top:12px; line-height:1.5; }
-  .kf-hidden { display:none!important; }
-
-  /* ── FOOTER ── */
-  footer { background:#0f1013; color:#f5f4f1; padding:clamp(60px,8vw,120px) var(--pad) clamp(30px,4vw,48px); }
-  footer a { color:inherit; text-decoration:none; }
-
-  /* ── LOOP PULSE ── */
-  @keyframes pulse { 0%,100%{opacity:.4;} 50%{opacity:1;} }
+/* ── FOOTER ── */
+footer{background:var(--dark);color:#f5f4f1;padding:clamp(60px,8vw,100px) var(--pad) clamp(32px,4vw,48px);}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:clamp(60px,8vw,100px);}
+.footer-logo{font-family:'Profa',sans-serif;font-size:clamp(14px,1.5vw,20px);font-weight:500;letter-spacing:.3em;color:#f5f4f1;}
+.footer-tagline{font-size:12px;letter-spacing:.08em;color:rgba(245,244,241,.3);margin-top:10px;}
+.footer-links{display:flex;flex-direction:column;gap:14px;align-items:flex-end;}
+footer a{color:rgba(245,244,241,.5);text-decoration:none;font-size:14px;transition:color .2s;}
+footer a:hover{color:#f5f4f1;}
+.footer-bottom{border-top:1px solid rgba(245,244,241,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:11px;color:rgba(245,244,241,.2);}
+.footer-rgpd{font-size:11px;line-height:1.55;color:rgba(245,244,241,.18);max-width:500px;margin-top:20px;}
 </style>
 </head>
 <body>
@@ -244,57 +225,57 @@
   <a href="#hero" id="nav-logo">KROMA</a>
   <span id="nav-center">Outdoor Art Gallery</span>
   <div id="nav-links">
-    <a href="#design" data-spy="design">Design</a>
-    <a href="#matiere" data-spy="matiere">Matière</a>
-    <a href="#collection" data-spy="collection">Collection</a>
-    <a href="#pros" data-spy="pros">Contact</a>
+    <a href="#intro">Manifeste</a>
+    <a href="#design">Design</a>
+    <a href="#collection">Collection</a>
+    <a href="#contact">Contact</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <img id="hero-clean" class="hero-layer" src="Images/kroma-header-clean.png" alt="KROMA">
-  <img id="hero-art"   class="hero-layer" src="Images/kroma-header.png"       alt="KROMA — Outdoor Art Gallery">
+  <img id="hero-art"   class="hero-layer" src="Images/kroma-header.png" alt="KROMA — Outdoor Art Gallery">
 </section>
 
-<!-- INTRO -->
-<section class="section" id="intro">
-  <div class="container">
-    <div class="stagger" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,130px);align-items:end;">
+<!-- MANIFESTO -->
+<section id="intro" class="section-xl">
+  <div class="wrap">
+    <div class="manifesto-grid">
       <div>
-        <p class="eyebrow">Outdoor Art Gallery</p>
-        <h2>L'art mural,<br>pensé pour l'extérieur.</h2>
+        <span class="label fade-up">Outdoor Art Gallery — Belgique</span>
+        <h2 class="fade-up d1">L'art mural,<br>pensé pour<br>l'extérieur.</h2>
       </div>
-      <p class="text-body" style="padding-bottom:6px;">KROMA réinvente le mur extérieur comme une toile. Des pièces pensées pour les terrasses, piscines et rooftops — fabriquées en Europe, éditées en série limitée.</p>
+      <p class="body-text fade-up d2" style="padding-bottom:8px;">KROMA réinvente le mur extérieur comme une toile. Des pièces pensées pour les terrasses, piscines et rooftops — fabriquées en Europe, éditées en série limitée.</p>
     </div>
   </div>
 </section>
 
 <hr class="rule" style="margin:0 var(--pad);">
 
-<!-- DESIGN + CIRCLES ANIMATION -->
+<!-- DESIGN + CIRCLES -->
 <div id="circles-pin">
   <div id="design" class="circles-sticky">
     <div id="circles-text">
       <div>
-        <p class="eyebrow">Design</p>
+        <span class="label">Design</span>
         <h2>Une signature.<br>Trois échelles.</h2>
-        <p class="c-edition"><strong>Édition limitée</strong> — 50 exemplaires par taille</p>
+        <p class="c-note"><strong>Édition limitée</strong> — 50 exemplaires par taille</p>
       </div>
-      <p class="text-body" style="padding-bottom:4px;">Le cercle ouvre la collection — une forme qui ne s'impose pas, elle compose avec l'architecture. 60, 80, 100 cm : une présence pensée pour habiter votre espace.</p>
+      <p class="body-text" style="padding-bottom:4px;">Le cercle ouvre la collection — une forme qui ne s'impose pas, elle compose avec l'architecture. 60, 80, 100 cm : une présence pensée pour habiter votre espace.</p>
     </div>
     <div id="circles-stage">
       <div id="circles-inner">
         <div class="c-disc" id="c-left">
-          <img src="Images/kroma-60cm.png">
+          <img src="Images/kroma-60cm.png" alt="60cm">
           <span class="c-label">60cm</span>
         </div>
         <div class="c-disc" id="c-center">
-          <img src="Images/kroma-80cm.png">
+          <img src="Images/kroma-80cm.png" alt="80cm">
           <span class="c-label">80cm</span>
         </div>
         <div class="c-disc" id="c-right">
-          <img src="Images/kroma-100cm.png">
+          <img src="Images/kroma-100cm.png" alt="100cm">
           <span class="c-label">100cm</span>
         </div>
       </div>
@@ -305,97 +286,96 @@
 <hr class="rule" style="margin:0 var(--pad);">
 
 <!-- MATIÈRE -->
-<section class="section section-dark" id="matiere">
-  <div class="container">
-
-    <div class="stagger" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,130px);align-items:end;margin-bottom:clamp(50px,7vw,90px);">
+<section id="matiere" class="section-xl">
+  <div class="wrap">
+    <div class="matiere-intro">
       <div>
-        <p class="eyebrow eyebrow-light">02 — Matière</p>
-        <h2 style="color:#f5f4f1;">À l'épreuve<br>des éléments.</h2>
+        <span class="label fade-up">Matière</span>
+        <h2 class="fade-up d1">À l'épreuve<br>des éléments.</h2>
       </div>
-      <p class="text-body text-body-dark" style="padding-bottom:4px;">Aluminium, sublimé par une impression haute définition — une matière qui ne cède rien au temps, résistante aux UV et à la pluie.</p>
+      <p class="body-text fade-up d2" style="padding-bottom:8px;">Aluminium, sublimé par une impression haute définition. Une matière qui ne cède rien au temps — résistante aux UV, à la pluie et aux variations de température.</p>
     </div>
-
-    <!-- Placeholder vidéo — épuré -->
-    <div class="reveal" style="width:100%;aspect-ratio:21/9;background:#1e1e22;border-radius:2px;overflow:hidden;position:relative;margin-bottom:clamp(50px,7vw,90px);">
-      <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,244,241,.2);font-family:'SFMono-Regular',Menlo,monospace;">Vidéo — bientôt</span>
-      <span style="position:absolute;top:20px;left:20px;display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.14em;color:rgba(245,244,241,.25);font-family:'SFMono-Regular',Menlo,monospace;">
-        <span style="width:6px;height:6px;border-radius:50%;background:rgba(245,244,241,.4);display:inline-block;animation:pulse 2.2s ease-in-out infinite;"></span>Loop
-      </span>
-    </div>
-
-    <div class="stagger" style="display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(40px,8vw,130px);align-items:end;">
-      <p class="text-lead text-body-dark">Chaque pièce KROMA prend forme sur aluminium — conçue pour l'extérieur, facile d'entretien. Un guide accompagne chaque pièce, pour que l'éclat traverse les saisons.</p>
-      <div>
-        <p class="matiere-tagline" style="color:#f5f4f1;">Née à Bruxelles.<br>Façonnée en Europe.</p>
-        <p style="font-size:13px;font-weight:300;color:rgba(245,244,241,.4);margin-top:8px;">Au plus près — jamais à l'autre bout du monde.</p>
+    <div class="matiere-stats">
+      <div class="stat-block fade-up">
+        <p class="stat-val">Aluminium</p>
+        <p class="stat-desc">Impression haute définition, sublimée pour résister à l'extérieur en toutes saisons.</p>
+      </div>
+      <div class="stat-block fade-up d1">
+        <p class="stat-val">Belgique</p>
+        <p class="stat-desc">Née à Bruxelles. Façonnée en Europe. Au plus près — jamais à l'autre bout du monde.</p>
+      </div>
+      <div class="stat-block fade-up d2">
+        <p class="stat-val">50 ex.</p>
+        <p class="stat-desc">Chaque pièce est numérotée. Chaque collection naît limitée et ne se reproduit pas.</p>
       </div>
     </div>
-
   </div>
 </section>
 
 <!-- COLLECTION -->
-<section class="section" id="collection">
-  <div class="container">
-
-    <div class="stagger" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,130px);align-items:end;">
+<section id="collection" class="section-xl section-stone">
+  <div class="wrap">
+    <div class="coll-header">
       <div>
-        <p class="eyebrow">03 — La Collection</p>
-        <h2>Trois pièces.<br>Un commencement.</h2>
+        <span class="label fade-up">La Collection</span>
+        <h2 class="fade-up d1">Trois pièces.<br>Un commencement.</h2>
       </div>
-      <p class="text-body" style="padding-bottom:4px;">Le point de départ d'une collection appelée à s'étendre — en édition limitée, avec des collaborations d'artistes à venir.</p>
+      <p class="body-text fade-up d2">Le point de départ d'une collection appelée à s'étendre — en édition limitée, avec des collaborations d'artistes à venir.</p>
     </div>
-
-    <div class="collection-grid stagger">
-      <div class="coll-card">
-        <div class="coll-card-img"><span class="placeholder">Solar</span></div>
-        <h3>SOLAR</h3>
-        <p>La chaleur en mouvement.</p>
+    <div class="coll-pieces">
+      <div class="fade-up">
+        <div class="piece-circle">
+          <img src="Images/kroma-60cm.png" alt="SOLAR" style="object-position:20% center;">
+        </div>
+        <p class="piece-label">01</p>
+        <p class="piece-name">SOLAR</p>
+        <p class="piece-tag">La chaleur en mouvement.</p>
       </div>
-      <div class="coll-card">
-        <div class="coll-card-img"><span class="placeholder">Mar</span></div>
-        <h3>MAR</h3>
-        <p>La profondeur en suspens.</p>
+      <div class="fade-up d1">
+        <div class="piece-circle">
+          <img src="Images/kroma-80cm.png" alt="MAR" style="object-position:50% center;">
+        </div>
+        <p class="piece-label">02</p>
+        <p class="piece-name">MAR</p>
+        <p class="piece-tag">La profondeur en suspens.</p>
       </div>
-      <div class="coll-card">
-        <div class="coll-card-img"><span class="placeholder">Tierra</span></div>
-        <h3>TIERRA</h3>
-        <p>La matière à l'état brut.</p>
+      <div class="fade-up d2">
+        <div class="piece-circle">
+          <img src="Images/kroma-100cm.png" alt="TIERRA" style="object-position:80% center;">
+        </div>
+        <p class="piece-label">03</p>
+        <p class="piece-name">TIERRA</p>
+        <p class="piece-tag">La matière à l'état brut.</p>
       </div>
     </div>
-
-    <div class="coll-footer reveal">
-      <p class="text-lead" style="max-width:640px;">Une pièce KROMA ne se reproduit pas — elle se possède. Chaque collection naît limitée, chaque exemplaire est numéroté.</p>
+    <div class="coll-bottom fade-up">
+      <p class="coll-note">Édition limitée — 50 exemplaires par taille — Chaque pièce numérotée</p>
     </div>
-
   </div>
 </section>
 
-<hr class="rule" style="margin:0 var(--pad);">
-
-<!-- PROS -->
-<section class="section section-stone" id="pros">
-  <div class="container">
-    <div class="pros-grid stagger">
-      <div>
-        <p class="eyebrow">04 — Pour les professionnels</p>
-        <h2>Architectes, paysagistes, agenceurs d'extérieur.</h2>
-        <div style="margin-top:36px;">
-          <button class="kf-btn" id="pro-toggle" type="button">Demander un devis →</button>
-        </div>
+<!-- CONTACT -->
+<section id="contact" class="section-xl">
+  <div class="wrap">
+    <span class="label fade-up">Entrer dans la collection</span>
+    <h2 class="fade-up d1">À vous<br>maintenant.</h2>
+    <div class="contact-grid">
+      <div class="contact-block fade-up d1">
+        <p class="contact-type">Architectes · Paysagistes · Agenceurs</p>
+        <h3>Devis professionnel</h3>
+        <p class="body-text">Tarif progressif selon le volume. Échantillon matière disponible sur demande, pour que votre client valide le rendu avant l'engagement.</p>
+        <a href="mailto:pro@kroma-art.com?subject=Devis professionnel KROMA" class="cta-link">Demander un devis →</a>
       </div>
-      <div>
-        <p class="text-body" style="margin-bottom:24px;">Un partenariat simple : un tarif professionnel qui progresse avec le volume, sans stock à gérer de votre côté.</p>
-        <p class="text-body">Un échantillon matière est disponible sur demande, pour que votre client valide le rendu avant l'engagement.</p>
-        <form id="pro-form" class="kf-hidden" style="margin-top:40px;max-width:440px;">
-          <div class="kf-field"><label for="pro-nom">Nom</label><input type="text" id="pro-nom" name="nom" required></div>
-          <div class="kf-field"><label for="pro-societe">Société / cabinet</label><input type="text" id="pro-societe" name="societe"></div>
-          <div class="kf-field"><label for="pro-email">Email</label><input type="email" id="pro-email" name="email" required></div>
-          <div class="kf-field"><label for="pro-tel">Téléphone</label><input type="tel" id="pro-tel" name="tel"></div>
-          <div class="kf-field"><label for="pro-message">Votre projet</label><textarea id="pro-message" name="message" rows="3"></textarea></div>
-          <button type="submit" class="kf-btn">Envoyer</button>
-          <p class="kf-helper">Votre client mail s'ouvrira avec les informations pré-remplies — laurent@kroma-art.com.</p>
+      <div class="contact-block fade-up d2">
+        <p class="contact-type">Particuliers</p>
+        <h3>Liste prioritaire</h3>
+        <p class="body-text">La vente directe ouvre prochainement. Inscrivez-vous pour être informé en premier — sans engagement.</p>
+        <form id="particulier-form">
+          <div class="kf-field">
+            <label for="p-email">Votre email</label>
+            <input type="email" id="p-email" name="email" required placeholder="vous@exemple.com">
+          </div>
+          <button type="submit" class="cta-btn">Rejoindre la liste →</button>
         </form>
       </div>
     </div>
@@ -404,59 +384,17 @@
 
 <hr class="rule" style="margin:0 var(--pad);">
 
-<!-- PARTICULIERS -->
-<section class="section" id="particuliers">
-  <div class="container-sm" style="text-align:center;">
-    <div class="stagger">
-      <p class="eyebrow" style="text-align:center;">05 — Pour les particuliers</p>
-      <h2>KROMA chez vous.<br>Bientôt.</h2>
-      <p class="text-body" style="max-width:520px;margin:24px auto 0;">La vente directe ouvre prochainement. Inscrivez-vous sur la liste prioritaire.</p>
-    </div>
-    <form id="particulier-form" class="reveal" style="margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:360px;margin-left:auto;margin-right:auto;">
-      <div class="kf-field" style="width:100%;"><label for="particulier-email">Votre email</label><input type="email" id="particulier-email" name="email" required style="text-align:center;"></div>
-      <button type="submit" class="kf-btn">Rejoindre la liste prioritaire</button>
-      <p class="kf-helper">contact@kroma-art.com — sans engagement.</p>
-    </form>
-  </div>
-</section>
-
-<hr class="rule" style="margin:0 var(--pad);">
-
-<!-- EXPÉRIENCE -->
-<section class="section section-dark">
-  <div class="container">
-    <div class="stagger" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,130px);align-items:center;">
-      <div>
-        <p class="eyebrow eyebrow-light">L'expérience KROMA</p>
-        <h2 style="color:#f5f4f1;">Chaque pièce,<br>une histoire.</h2>
-      </div>
-      <p class="text-lead text-body-dark">À la réception de votre pièce, un certificat d'authenticité numéroté vous est envoyé séparément — avec un guide d'entretien et un mot de remerciement. Une attention pensée pour marquer un commencement.</p>
-    </div>
-  </div>
-</section>
-
 <!-- FONDATEUR -->
-<section class="section">
-  <div class="container-sm">
-    <div class="stagger">
-      <p class="eyebrow">Le fondateur</p>
-      <h2>Une signature.</h2>
-      <p class="text-lead" style="margin-top:32px;color:var(--ink-60);">Avant KROMA, il y a eu dix ans de production audiovisuelle et de design — et une certitude : une idée ne vaut que si on sait la concrétiser. Cette exigence a porté Mira Visual Creations, qui a trouvé sa place jusque chez Roche Bobois. KROMA est née de la même passion — pour l'art, pour l'architecture.</p>
-    </div>
-  </div>
-</section>
-
-<hr class="rule" style="margin:0 var(--pad);">
-
-<!-- CLÔTURE -->
-<section class="section section-stone" id="final-cta">
-  <div class="container-sm" style="text-align:center;">
-    <div class="stagger">
-      <h2>Parlons-en.</h2>
-      <p class="text-body" style="margin:20px auto 0;max-width:440px;">Professionnel ou particulier — la conversation commence ici.</p>
-      <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:40px;">
-        <a href="#pros" class="kf-btn">Devis professionnel →</a>
-        <a href="#particuliers" class="kf-btn kf-btn-outline">Liste prioritaire</a>
+<section id="founder" class="section-xl">
+  <div class="wrap">
+    <div class="founder-grid">
+      <div>
+        <span class="label fade-up">Le fondateur</span>
+        <p class="founder-mark fade-up d1">K</p>
+      </div>
+      <div>
+        <h2 class="fade-up">Une vision.</h2>
+        <p class="body-text fade-up d1" style="margin-top:clamp(20px,3vw,36px);max-width:540px;">Avant KROMA, il y a eu dix ans de production audiovisuelle et de design — et une certitude : une idée ne vaut que si on sait la concrétiser. Cette exigence a porté Mira Visual Creations, qui a trouvé sa place jusque chez Roche Bobois. KROMA est née de la même passion — pour l'art, pour l'architecture, pour l'extérieur.</p>
       </div>
     </div>
   </div>
@@ -464,57 +402,45 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="container">
-    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(40px,8vw,120px);padding-bottom:clamp(40px,6vw,80px);border-bottom:1px solid rgba(255,255,255,.08);">
+  <div class="footer-inner">
+    <div class="footer-top">
       <div>
-        <p style="font-size:13px;font-weight:500;letter-spacing:.28em;margin-bottom:20px;font-family:'ProfaCondensed','Profa',sans-serif;">KROMA</p>
-        <p style="font-size:14px;font-weight:300;line-height:1.65;color:rgba(245,244,241,.5);max-width:320px;">L'art mural, pensé pour l'extérieur. Née à Bruxelles. Façonnée en Europe.</p>
+        <p class="footer-logo">KROMA</p>
+        <p class="footer-tagline">Outdoor Art Gallery — Belgique</p>
       </div>
-      <div>
-        <p style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,244,241,.35);margin-bottom:20px;">Contact</p>
-        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,244,241,.3);min-width:80px;">Particulier</span>
-            <a href="#particuliers" style="font-size:14px;color:rgba(245,244,241,.75);border-bottom:1px solid rgba(245,244,241,.2);padding-bottom:1px;">Liste prioritaire</a>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,244,241,.3);min-width:80px;">Pro</span>
-            <a href="#pros" style="font-size:14px;color:rgba(245,244,241,.75);border-bottom:1px solid rgba(245,244,241,.2);padding-bottom:1px;">Devis</a>
-          </div>
-        </div>
-        <div style="display:flex;gap:20px;">
-          <a href="#" style="font-size:12px;letter-spacing:.04em;color:rgba(245,244,241,.4);">Instagram</a>
-          <a href="#" style="font-size:12px;letter-spacing:.04em;color:rgba(245,244,241,.4);">Pinterest</a>
-        </div>
+      <div class="footer-links">
+        <a href="#intro">Manifeste</a>
+        <a href="#design">Design</a>
+        <a href="#collection">Collection</a>
+        <a href="#contact">Contact</a>
+        <a href="mailto:hello@kroma-art.com">hello@kroma-art.com</a>
       </div>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding-top:24px;">
-      <div style="display:flex;gap:22px;flex-wrap:wrap;">
-        <a href="#" style="font-size:11px;color:rgba(245,244,241,.35);">Mentions légales</a>
-        <a href="#" style="font-size:11px;color:rgba(245,244,241,.35);">Confidentialité</a>
+    <div class="footer-bottom">
+      <span class="footer-copy">© KROMA 2026 — Tous droits réservés</span>
+      <div style="display:flex;gap:20px;">
+        <a href="#" style="font-size:11px;color:rgba(245,244,241,.25);">Mentions légales</a>
+        <a href="#" style="font-size:11px;color:rgba(245,244,241,.25);">Confidentialité</a>
       </div>
-      <span style="font-size:11px;color:rgba(245,244,241,.25);">© KROMA 2026</span>
     </div>
-    <p style="font-size:10.5px;line-height:1.55;color:rgba(245,244,241,.25);max-width:500px;margin-top:24px;">En soumettant le formulaire, vous consentez au traitement de vos données conformément au RGPD. Consentement révocable à tout moment.</p>
+    <p class="footer-rgpd">En soumettant le formulaire, vous consentez au traitement de vos données conformément au RGPD. Consentement révocable à tout moment.</p>
   </div>
 </footer>
 
 <script>
-// ── ELEMENTS ──────────────────────────────────
-const heroClean   = document.getElementById('hero-clean');
-const heroArt     = document.getElementById('hero-art');
-const nav         = document.getElementById('nav');
-const hero        = document.getElementById('hero');
-const circlesPin  = document.getElementById('circles-pin');
-const cLeft       = document.getElementById('c-left');
-const cCenter     = document.getElementById('c-center');
-const cRight      = document.getElementById('c-right');
-const spySections = ['design','matiere','collection','pros','particuliers']
-  .map(id => document.getElementById(id)).filter(Boolean);
+// ── ELEMENTS ──────────────────────────────────────────
+const heroClean  = document.getElementById('hero-clean');
+const heroArt    = document.getElementById('hero-art');
+const nav        = document.getElementById('nav');
+const hero       = document.getElementById('hero');
+const circlesPin = document.getElementById('circles-pin');
+const cLeft      = document.getElementById('c-left');
+const cCenter    = document.getElementById('c-center');
+const cRight     = document.getElementById('c-right');
 
-// ── HERO SCROLL LOCK ──────────────────────────
-let heroProgress = 0;      // 0 → 1: fade progress
-let heroUnlocked = false;  // true once artwork is fully visible
+// ── HERO SCROLL LOCK ──────────────────────────────────
+let heroProgress = 0;
+let heroUnlocked = false;
 
 function applyHeroFade(p) {
   heroProgress = Math.min(1, Math.max(0, p));
@@ -529,7 +455,7 @@ function unlockScroll() {
   document.removeEventListener('touchmove', onTouchMove);
 }
 
-const WHEEL_SENSITIVITY = 0.0012; // tune: smaller = more scroll needed
+const WHEEL_SENSITIVITY = 0.0012;
 let touchStartY = 0;
 
 function onWheel(e) {
@@ -537,12 +463,10 @@ function onWheel(e) {
   e.preventDefault();
   applyHeroFade(heroProgress + e.deltaY * WHEEL_SENSITIVITY);
 }
-
 function onTouchStart(e) {
   if (heroUnlocked) return;
   touchStartY = e.touches[0].clientY;
 }
-
 function onTouchMove(e) {
   if (heroUnlocked) return;
   e.preventDefault();
@@ -555,93 +479,73 @@ document.addEventListener('wheel', onWheel, { passive: false });
 document.addEventListener('touchstart', onTouchStart, { passive: true });
 document.addEventListener('touchmove', onTouchMove, { passive: false });
 
-// ── SCROLL HANDLER ────────────────────────────
+// ── SCROLL HANDLER ────────────────────────────────────
 function onScroll() {
   const sy = window.scrollY;
   const vh = window.innerHeight;
 
-  // Hero: parallax only (fade is driven by wheel lock above)
-  const heroParallax = `translateY(${sy * 0.3}px)`;
-  if (heroClean) heroClean.style.transform = heroParallax;
-  if (heroArt)   heroArt.style.transform   = heroParallax;
+  // Hero parallax
+  const tx = `translateY(${sy * 0.3}px)`;
+  if (heroClean) heroClean.style.transform = tx;
+  if (heroArt)   heroArt.style.transform   = tx;
 
   // Nav state
   const heroBottom = hero ? hero.getBoundingClientRect().bottom : -1;
   nav.classList.toggle('scrolled', heroBottom < vh * 0.15);
 
-  // Scroll-spy
-  const mid = vh * 0.4;
-  let active = null;
-  spySections.forEach(s => {
-    const r = s.getBoundingClientRect();
-    if (r.top <= mid && r.bottom >= mid) active = s.id;
-  });
-  document.querySelectorAll('#nav-links a[data-spy]').forEach(a => {
-    a.classList.toggle('active', a.dataset.spy === active);
+  // Nav spy
+  ['intro','design','collection','contact'].forEach(id => {
+    const el = document.getElementById(id);
+    const a  = document.querySelector(`#nav-links a[href="#${id}"]`);
+    if (!el || !a) return;
+    const r = el.getBoundingClientRect();
+    a.classList.toggle('active', r.top <= vh * 0.4 && r.bottom > 0);
   });
 
-  // Circles fan-out animation
+  // Circles fan-out
   if (circlesPin && cLeft && cRight) {
     const cr    = circlesPin.getBoundingClientRect();
     const total = circlesPin.offsetHeight - vh;
     const p     = Math.max(0, Math.min(1, -cr.top / total));
     const fanP  = p < 0.5 ? p * 2 : 1;
 
-    // spread: center-to-center distance so discs sit just touching
     const w60  = cLeft.offsetWidth;
     const w80  = cCenter.offsetWidth;
     const w100 = cRight.offsetWidth;
     const spreadLeft  = (w80 / 2 + w60  / 2) * 1.1;
     const spreadRight = (w80 / 2 + w100 / 2) * 1.1;
 
-    // all discs: left:50% → need translateX(-50%) as base + fan offset
-    cLeft.style.transform  = `translateX(calc(-50% + ${-spreadLeft  * fanP}px))`;
+    cLeft.style.transform   = `translateX(calc(-50% + ${-spreadLeft  * fanP}px))`;
     cCenter.style.transform = `translateX(-50%)`;
-    cRight.style.transform = `translateX(calc(-50% + ${spreadRight * fanP}px))`;
-    cLeft.style.opacity    = Math.min(1, p * 5);
-    cRight.style.opacity   = Math.min(1, p * 5);
+    cRight.style.transform  = `translateX(calc(-50% + ${spreadRight * fanP}px))`;
+    cLeft.style.opacity     = Math.min(1, p * 5);
+    cRight.style.opacity    = Math.min(1, p * 5);
 
-    const showExtra = fanP > 0.55;
-    document.querySelectorAll('.c-label').forEach(l => l.style.opacity = showExtra ? '1' : '0');
+    const showLabels = fanP > 0.55;
+    document.querySelectorAll('.c-label').forEach(l => l.style.opacity = showLabels ? '1' : '0');
   }
 }
 
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-// ── INTERSECTION REVEALS ──────────────────────
+// ── INTERSECTION OBSERVER — fade-up reveals ───────────
 const io = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in');
-      io.unobserve(entry.target);
-    }
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
 
-document.querySelectorAll('.reveal, .reveal-line, .stagger').forEach(el => io.observe(el));
-
-// ── FORMS ─────────────────────────────────────
-document.getElementById('pro-toggle').addEventListener('click', () => {
-  document.getElementById('pro-form').classList.toggle('kf-hidden');
-});
-
-document.getElementById('pro-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const nom     = document.getElementById('pro-nom').value;
-  const societe = document.getElementById('pro-societe').value;
-  const email   = document.getElementById('pro-email').value;
-  const tel     = document.getElementById('pro-tel').value;
-  const message = document.getElementById('pro-message').value;
-  const body    = `Nom: ${nom}\nSociété: ${societe}\nEmail: ${email}\nTéléphone: ${tel}\n\nProjet:\n${message}`;
-  window.location.href = `mailto:laurent@kroma-art.com?subject=${encodeURIComponent('Devis professionnel — KROMA')}&body=${encodeURIComponent(body)}`;
-});
-
-document.getElementById('particulier-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const email = document.getElementById('particulier-email').value;
-  window.location.href = `mailto:contact@kroma-art.com?subject=${encodeURIComponent('Liste prioritaire — KROMA')}&body=${encodeURIComponent(`Email: ${email}`)}`;
-});
+// ── FORM — particuliers ───────────────────────────────
+const pForm = document.getElementById('particulier-form');
+if (pForm) {
+  pForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('p-email').value;
+    window.location.href = `mailto:contact@kroma-art.com?subject=Liste prioritaire KROMA&body=Email : ${email}`;
+  });
+}
 </script>
 </body>
 </html>
