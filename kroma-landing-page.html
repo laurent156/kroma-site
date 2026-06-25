@@ -75,11 +75,10 @@
     position:sticky; top:0; height:100vh; overflow:hidden;
     background:#f5f4f1;
     display:flex; flex-direction:column;
-    padding: clamp(50px,7vw,90px) 0 0;
+    padding: clamp(50px,7vw,90px) var(--pad) 0;
   }
   #circles-text {
     max-width:1200px; margin:0 auto; width:100%;
-    padding: 0 var(--pad);
     display:grid; grid-template-columns:1fr 1fr;
     gap:clamp(32px,6vw,100px); align-items:end;
     flex-shrink:0;
