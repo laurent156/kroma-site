@@ -271,6 +271,31 @@ h3{
 .stat-val{font-size:clamp(20px,2.8vw,36px);font-weight:600;letter-spacing:-.02em;margin-bottom:12px;}
 .stat-desc{font-size:14px;font-weight:300;line-height:1.65;color:rgba(24,24,24,.72);}
 
+/* ── MATIÈRE : showcase 3D + stats ── */
+.matiere-showcase{
+  display:grid;grid-template-columns:1.4fr 1fr;
+  gap:clamp(28px,4vw,72px);
+  margin-top:clamp(48px,8vw,100px);
+  align-items:stretch;
+}
+.matiere-3d{display:flex;flex-direction:column;}
+.viewer-canvas{
+  width:100%;aspect-ratio:1/1;position:relative;
+  background:radial-gradient(120% 100% at 50% 38%, #ece9e4 0%, #ddd9d3 60%, #c9c4bd 100%);
+  overflow:hidden;cursor:grab;
+}
+.viewer-canvas:active{cursor:grabbing;}
+.viewer-canvas canvas{display:block;width:100%;height:100%;}
+.viewer-hint{
+  font-size:11px;letter-spacing:.04em;color:rgba(24,24,24,.5);
+  text-align:center;margin-top:14px;font-weight:300;
+}
+.matiere-stats-col{
+  display:flex;flex-direction:column;gap:1px;background:var(--ink-12);
+  align-self:stretch;
+}
+.matiere-stats-col .stat-block{flex:1;display:flex;flex-direction:column;justify-content:center;}
+
 /* ── FICHE TECHNIQUE ── */
 .spec-table{
   margin-top:clamp(48px,8vw,100px);
@@ -423,6 +448,7 @@ footer a:hover{color:#f7f7f7;}
   .matiere-intro{grid-template-columns:1fr;gap:clamp(24px,6vw,36px);}
   .matiere-photos{grid-template-columns:1fr;}
   .matiere-stats{grid-template-columns:1fr;}
+  .matiere-showcase{grid-template-columns:1fr;gap:clamp(24px,6vw,40px);}
 
   /* SPEC GRID */
   .spec-grid{grid-template-columns:1fr 1fr;}
@@ -441,6 +467,14 @@ footer a:hover{color:#f7f7f7;}
   .footer-bottom{flex-direction:column;align-items:flex-start;gap:16px;}
 }
 </style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+  }
+}
+</script>
 </head>
 <body>
 <div id="scroll-progress"></div>
@@ -505,9 +539,9 @@ footer a:hover{color:#f7f7f7;}
   <div class="wrap">
     <div class="coll-header">
       <div>
-        <h2 class="fade-up">Trois pièces.<br>Première édition.</h2>
+        <h2 class="fade-up">ABSTRACT.<br>Première collection.</h2>
       </div>
-      <p class="body-text fade-up d1">Chaque pièce est numérotée, signée — limitée à 50 exemplaires par format.</p>
+      <p class="body-text fade-up d1">Trois pièces abstraites et vivantes qui rappellent les éléments du monde extérieur — l'eau, la terre, le feu.</p>
     </div>
     <div class="coll-pieces">
       <div class="fade-up">
@@ -583,28 +617,25 @@ footer a:hover{color:#f7f7f7;}
       </div>
     </div>
 
-    <div class="matiere-stats">
-      <div class="stat-block fade-up">
-        <p class="stat-val">Aluminium</p>
-        <p class="stat-desc">Sublimation haute définition sur aluminium. Couleurs stables, clarté d'image préservée sous exposition extérieure prolongée.</p>
+    <div class="matiere-showcase">
+      <div class="matiere-3d fade-up">
+        <div id="kroma-viewer" class="viewer-canvas" aria-label="Modèle 3D KROMA, pivotable"></div>
+        <p class="viewer-hint">Glissez pour faire pivoter — face &amp; fixation arrière</p>
       </div>
-      <div class="stat-block fade-up d1">
-        <p class="stat-val">Résistance UV</p>
-        <p class="stat-desc">Certifiée, résistante à la décoloration. Conçue pour rester identique à elle-même, saison après saison.</p>
+      <div class="matiere-stats-col">
+        <div class="stat-block fade-up">
+          <p class="stat-val">Aluminium</p>
+          <p class="stat-desc">Sublimation haute définition sur aluminium. Couleurs stables, clarté d'image préservée sous exposition extérieure prolongée.</p>
+        </div>
+        <div class="stat-block fade-up d1">
+          <p class="stat-val">Résistance UV</p>
+          <p class="stat-desc">Certifiée, résistante à la décoloration. Conçue pour rester identique à elle-même, saison après saison.</p>
+        </div>
+        <div class="stat-block fade-up d2">
+          <p class="stat-val">Étanchéité</p>
+          <p class="stat-desc">Résistante à l'humidité et aux intempéries.</p>
+        </div>
       </div>
-      <div class="stat-block fade-up d2">
-        <p class="stat-val">Étanchéité</p>
-        <p class="stat-desc">Résistante à l'humidité et aux intempéries.</p>
-      </div>
-    </div>
-
-    <div class="matiere-photos fade-up d1">
-      <figure class="matiere-photo">
-        <img src="Images/KROMA - Product back face.jpg" alt="KROMA, vue de face" loading="lazy">
-      </figure>
-      <figure class="matiere-photo">
-        <img src="Images/KROMA - Product back.jpg" alt="KROMA, vue de dos" loading="lazy">
-      </figure>
     </div>
 
     <div class="spec-table fade-up">
@@ -995,6 +1026,127 @@ if (pForm) {
     }
     pForm.reset();
   });
+}
+</script>
+
+<!-- ── VIEWER 3D KROMA (lazy-load : Three.js ne se charge qu'à l'approche) ── -->
+<script type="module">
+const viewerEl = document.getElementById('kroma-viewer');
+if (viewerEl) {
+  let started = false;
+  const vio = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting && !started) {
+        started = true;
+        vio.disconnect();
+        initKromaViewer(viewerEl);
+      }
+    });
+  }, { rootMargin: '300px' });
+  vio.observe(viewerEl);
+}
+
+async function initKromaViewer(container) {
+  const THREE = await import('three');
+  const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
+
+  const W = () => container.clientWidth;
+  const H = () => container.clientHeight;
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(W(), H());
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.85;
+  container.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  scene.background = null;
+
+  const camera = new THREE.PerspectiveCamera(38, W() / H(), 0.01, 100);
+  camera.position.set(0, 0, 1.7);
+  camera.lookAt(0, 0, 0);
+
+  // Environnement studio (2 softbox → reflets glossy)
+  function makeStudioEnv() {
+    const c = document.createElement('canvas');
+    c.width = 1024; c.height = 512;
+    const ctx = c.getContext('2d');
+    const g = ctx.createLinearGradient(0, 0, 0, 512);
+    g.addColorStop(0.0, '#3a3d42'); g.addColorStop(0.5, '#191b1e'); g.addColorStop(1.0, '#0a0b0c');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 1024, 512);
+    let s = ctx.createLinearGradient(585, 0, 665, 0);
+    s.addColorStop(0, 'rgba(255,255,255,0)'); s.addColorStop(0.06, 'rgba(255,255,255,1)');
+    s.addColorStop(0.94, 'rgba(255,255,255,1)'); s.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = s; ctx.fillRect(585, 0, 80, 512);
+    s = ctx.createLinearGradient(360, 0, 440, 0);
+    s.addColorStop(0, 'rgba(255,255,255,0)'); s.addColorStop(0.06, 'rgba(255,255,255,1)');
+    s.addColorStop(0.94, 'rgba(255,255,255,1)'); s.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = s; ctx.fillRect(360, 0, 80, 512);
+    const t = new THREE.CanvasTexture(c);
+    t.mapping = THREE.EquirectangularReflectionMapping; t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  }
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const envTex = makeStudioEnv();
+  scene.environment = pmrem.fromEquirectangular(envTex).texture;
+  envTex.dispose(); pmrem.dispose();
+
+  // Lumières neutres
+  scene.add(new THREE.AmbientLight(0xffffff, 1.45));
+  const key = new THREE.DirectionalLight(0xffffff, 2.4); key.position.set(2.5, 1.5, 2.5); scene.add(key);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.9); fill.position.set(-2, -0.5, 1); scene.add(fill);
+
+  const pivot = new THREE.Group();
+  scene.add(pivot);
+
+  new GLTFLoader().load('models/kroma-disc.glb', (gltf) => {
+    pivot.rotation.x = Math.PI / 2;
+    gltf.scene.traverse((node) => {
+      if (node.isMesh && node.material) {
+        const m = node.material;
+        if (m.name === 'Mat_Print') {
+          const phys = new THREE.MeshPhysicalMaterial({
+            map: m.map, metalness: 0.18, roughness: 0.13,
+            clearcoat: 1.0, clearcoatRoughness: 0.0015, envMapIntensity: 7.0,
+          });
+          if (m.map) m.map.colorSpace = THREE.SRGBColorSpace;
+          node.material = phys;
+        } else if (m.name === 'Mat_Foam') { m.envMapIntensity = 0.3; }
+        else if (m.name === 'Mat_Back')   { m.envMapIntensity = 0.4; }
+        else                              { m.envMapIntensity = 1.4; }
+      }
+    });
+    pivot.add(gltf.scene);
+  });
+
+  // Rotation : glisser horizontal uniquement (axe vertical)
+  let dragging = false, lastX = 0;
+  const SENS = 0.005;
+  const el = renderer.domElement;
+  el.addEventListener('mousedown', (e) => { dragging = true; lastX = e.clientX; });
+  window.addEventListener('mouseup', () => dragging = false);
+  window.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - lastX; lastX = e.clientX;
+    pivot.quaternion.premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), dx * SENS));
+  });
+  el.addEventListener('touchstart', (e) => { dragging = true; lastX = e.touches[0].clientX; }, { passive: true });
+  window.addEventListener('touchend', () => dragging = false);
+  window.addEventListener('touchmove', (e) => {
+    if (!dragging) return;
+    const dx = e.touches[0].clientX - lastX; lastX = e.touches[0].clientX;
+    pivot.quaternion.premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), dx * SENS));
+  }, { passive: true });
+
+  const ro = new ResizeObserver(() => {
+    camera.aspect = W() / H(); camera.updateProjectionMatrix();
+    renderer.setSize(W(), H());
+  });
+  ro.observe(container);
+
+  (function loop() { requestAnimationFrame(loop); renderer.render(scene, camera); })();
 }
 </script>
 </body>
