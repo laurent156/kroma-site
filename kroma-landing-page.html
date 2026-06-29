@@ -6,7 +6,7 @@
 <title>KROMA — Outdoor Art Gallery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Light.ttf') format('truetype');font-weight:300;font-display:swap;}
 @font-face{font-family:'Profa';src:url('Fonts/profa-font-family/ProfaTrial-Regular.ttf') format('truetype');font-weight:400;font-display:swap;}
@@ -15,7 +15,7 @@
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:auto;}
-body{background:#f7f7f7;font-family:'Inter','Helvetica Neue',sans-serif;color:#181818;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{background:#f7f7f7;font-family:'Jost','Helvetica Neue',sans-serif;color:#181818;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 body.nav-open{overflow:hidden;}
 ::selection{background:#181818;color:#f7f7f7;}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0;}
@@ -89,7 +89,7 @@ body.nav-open #nav-burger span:nth-child(3){transform:translateY(-6.5px) rotate(
 }
 body.nav-open #nav-overlay{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .4s cubic-bezier(.16,1,.3,1),visibility 0s;}
 #nav-overlay a{
-  font-family:'Inter',sans-serif;
+  font-family:'Jost',sans-serif;
   font-size:clamp(32px,9vw,52px);font-weight:700;
   letter-spacing:-.025em;line-height:1.1;
   color:var(--ink);text-decoration:none;
@@ -359,7 +359,7 @@ h3{
 .kf-field{display:flex;flex-direction:column;gap:6px;margin-bottom:18px;}
 .kf-field label{font-family:'Profa',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-30);}
 .kf-field input{
-  font-family:'Inter',sans-serif;font-size:16px;font-weight:300;
+  font-family:'Jost',sans-serif;font-size:16px;font-weight:300;
   color:var(--ink);background:transparent;border:none;
   border-bottom:1px solid var(--ink-12);
   padding:10px 0;outline:none;transition:border-color .2s;
@@ -379,7 +379,7 @@ h3{
   min-height:44px;align-items:flex-end;
 }
 .cta-btn{
-  font-family:'Inter',sans-serif;
+  font-family:'Jost',sans-serif;
   display:inline-flex;align-items:center;gap:10px;
   font-size:14px;font-weight:500;color:var(--ink);
   background:none;border:none;border-bottom:1px solid var(--ink-12);
@@ -586,7 +586,7 @@ footer a:hover{color:#f7f7f7;}
     </div>
     <div class="coll-bottom fade-up">
       <h3 style="margin-bottom:clamp(12px,2vw,20px);">Une édition rare.</h3>
-      <p class="body-text">Chaque œuvre est éditée à 50 exemplaires seulement, tous formats confondus. Signée de la main de l'artiste et accompagnée de son certificat d'authenticité.</p>
+      <p class="body-text">Chaque œuvre est éditée à 50 exemplaires par format, numérotés de 1 à 50. Chaque pièce est signée de la main de l'artiste et accompagnée de son certificat d'authenticité.</p>
     </div>
   </div>
 </section>
@@ -731,7 +731,7 @@ footer a:hover{color:#f7f7f7;}
       <div class="contact-block fade-up d2">
         <p class="contact-type">Particuliers</p>
         <h3>Entrez dans le cercle KROMA.</h3>
-        <p class="body-text">La vente directe de cette première collection ouvrira très prochainement. Compte tenu du tirage strictement limité à 50 exemplaires par œuvre, les pièces seront attribuées par ordre d'inscription.</p>
+        <p class="body-text">La vente directe de cette première collection ouvrira très prochainement. Compte tenu du tirage strictement limité à 50 exemplaires par format, les pièces seront attribuées par ordre d'inscription.</p>
         <p class="body-text" style="margin-top:12px;">Assurez votre priorité et recevez les détails de lancement en avant-première.</p>
         <form id="particulier-form">
           <div class="kf-field">
