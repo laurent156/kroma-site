@@ -346,6 +346,22 @@ h3{
   line-height:.9;letter-spacing:-.04em;
   color:var(--ink-12);user-select:none;
 }
+.origine-portrait{margin:0;}
+.origine-portrait img{
+  width:100%;height:auto;display:block;
+  aspect-ratio:4/5;object-fit:cover;
+  filter:grayscale(1);
+}
+.origine-caption{margin-top:clamp(14px,2vw,20px);}
+.origine-caption .name{
+  font-family:'Profa',sans-serif;
+  font-size:clamp(14px,1.4vw,17px);font-weight:500;
+  letter-spacing:-.01em;color:var(--ink);
+}
+.origine-caption .role{
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ink-label);margin-top:6px;
+}
 
 /* ── CONTACT ── */
 .contact-grid{
@@ -468,6 +484,9 @@ footer a:hover{color:#f7f7f7;}
   /* COLLECTION */
   .coll-header{grid-template-columns:1fr;gap:clamp(20px,5vw,32px);}
   .coll-pieces{grid-template-columns:1fr;gap:clamp(40px,8vw,56px);}
+
+  /* ORIGINE */
+  .origine-grid{grid-template-columns:1fr;gap:clamp(28px,6vw,40px);}
 
   /* CONTACT */
   .contact-grid{grid-template-columns:1fr;gap:clamp(48px,10vw,64px);}
@@ -710,7 +729,13 @@ footer a:hover{color:#f7f7f7;}
   <div class="wrap">
     <div class="origine-grid">
       <div>
-        <p class="origine-mark fade-up">K</p>
+        <figure class="origine-portrait fade-up">
+          <img src="Images/laurent-van-ausloos.jpg" alt="Laurent Van Ausloos, fondateur de KROMA" loading="lazy">
+          <figcaption class="origine-caption">
+            <p class="name">Laurent Van Ausloos</p>
+            <p class="role">Fondateur</p>
+          </figcaption>
+        </figure>
       </div>
       <div>
         <h2 class="fade-up">À l'origine.</h2>
