@@ -1035,27 +1035,6 @@ if (customCursor && canHover && !prefersReducedMotion) {
   });
 }
 
-// ── EDITION COUNTER (25 ex.) ─────────────────────────
-if (!prefersReducedMotion) {
-  const editionStat = [...document.querySelectorAll('.stat-val')]
-    .find(el => el.textContent.trim() === '25 ex.');
-  if (editionStat) {
-    const ioCount = new IntersectionObserver(entries => {
-      if (!entries[0].isIntersecting) return;
-      ioCount.unobserve(editionStat);
-      const start = performance.now();
-      const dur = 1400;
-      (function tick(now) {
-        const t = Math.min((now - start) / dur, 1);
-        const ease = 1 - Math.pow(1 - t, 3);
-        editionStat.textContent = t < 1 ? `${Math.round(ease * 25)} ex.` : '25 ex.';
-        if (t < 1) requestAnimationFrame(tick);
-      })(start);
-    }, { threshold: 0.6 });
-    ioCount.observe(editionStat);
-  }
-}
-
 // ── CONSOLE EASTER EGG ───────────────────────────────
 console.groupCollapsed(
   '%cK R O M A',
