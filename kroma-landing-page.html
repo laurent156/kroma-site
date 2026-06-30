@@ -663,7 +663,7 @@ footer a:hover{color:#f7f7f7;}
     <div class="matiere-showcase">
       <div class="matiere-3d fade-up">
         <div id="kroma-viewer" class="viewer-canvas" aria-label="Modèle 3D KROMA, pivotable"></div>
-        <p class="viewer-hint">Glissez pour faire pivoter — face &amp; fixation arrière</p>
+        <p class="viewer-hint">Glissez pour faire pivoter · face et fixation arrière</p>
       </div>
       <div class="matiere-stats-col">
         <div class="stat-block fade-up">
@@ -1206,6 +1206,31 @@ async function initKromaViewer(container) {
     const dx = e.touches[0].clientX - lastX; lastX = e.touches[0].clientX;
     pivot.quaternion.premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), dx * SENS));
   }, { passive: true });
+
+  // Pivot doux au scroll : indice d'interactivité (le disque tourne pendant qu'on traverse la section)
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    const SCROLL_AMP = 0.8;             // amplitude totale (~46°) sur toute la traversée
+    const yAxis = new THREE.Vector3(0, 1, 0);
+    let scrollAngle = null, scrollQueued = false;
+    function applyScrollRotation() {
+      const rect = container.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const p = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
+      const target = (p - 0.5) * SCROLL_AMP;
+      if (scrollAngle === null) { scrollAngle = target; return; }  // baseline sans saut
+      const delta = target - scrollAngle;
+      scrollAngle = target;
+      if (!dragging) {
+        pivot.quaternion.premultiply(new THREE.Quaternion().setFromAxisAngle(yAxis, delta));
+      }
+    }
+    window.addEventListener('scroll', () => {
+      if (scrollQueued) return;
+      scrollQueued = true;
+      requestAnimationFrame(() => { scrollQueued = false; applyScrollRotation(); });
+    }, { passive: true });
+  }
 
   const ro = new ResizeObserver(() => {
     camera.aspect = W() / H(); camera.updateProjectionMatrix();
