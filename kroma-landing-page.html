@@ -322,10 +322,7 @@ h3{
 .coll-header{display:grid;grid-template-columns:3fr 2fr;gap:clamp(40px,8vw,120px);align-items:end;margin-bottom:clamp(48px,8vw,100px);}
 .coll-pieces{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);}
 .piece-circle{width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;margin-bottom:clamp(18px,3vw,32px);box-shadow:0 24px 48px -16px rgba(24,24,24,.28);}
-.piece-circle img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1);}
-@media (hover: hover) {
-  .piece-circle:hover img{transform:scale(1.04);}
-}
+.piece-circle img{width:100%;height:100%;object-fit:cover;}
 .piece-edition{font-size:10px;letter-spacing:.18em;color:var(--ink-label);margin-bottom:10px;}
 .piece-name{font-size:clamp(20px,2.5vw,34px);font-weight:700;letter-spacing:-.02em;margin-bottom:8px;}
 .piece-tag{font-size:13px;font-weight:400;color:rgba(24,24,24,.45);letter-spacing:.06em;}
