@@ -321,7 +321,7 @@ h3{
 /* ── COLLECTION ── */
 .coll-header{display:grid;grid-template-columns:3fr 2fr;gap:clamp(40px,8vw,120px);align-items:end;margin-bottom:clamp(48px,8vw,100px);}
 .coll-pieces{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);}
-.piece-circle{width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;margin-bottom:clamp(18px,3vw,32px);}
+.piece-circle{width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;margin-bottom:clamp(18px,3vw,32px);box-shadow:0 24px 48px -16px rgba(24,24,24,.28);}
 .piece-circle img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1);}
 @media (hover: hover) {
   .piece-circle:hover img{transform:scale(1.04);}
@@ -563,7 +563,7 @@ footer a:hover{color:#f7f7f7;}
     <div class="coll-pieces">
       <div class="fade-up">
         <div class="piece-circle">
-          <img src="Images/kroma-80cm.png" alt="MAR" style="object-position:50% center;" loading="lazy">
+          <img src="Images/kroma-mar-disc.png" alt="MAR" loading="lazy">
         </div>
         <p class="piece-edition">Édition I · N° 1–50</p>
         <p class="piece-name">MAR</p>
