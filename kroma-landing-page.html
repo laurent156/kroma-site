@@ -558,7 +558,7 @@ footer a:hover{color:#f7f7f7;}
         </h2>
       </div>
       <div>
-        <p class="body-text fade-up d2" style="padding-bottom:clamp(24px,4vw,40px);">KROMA conçoit des œuvres d'art contemporaines pensées pour l'extérieur, façonnées pour habiter l'architecture et dialoguer avec les éléments. Chaque pièce est éditée en série limitée à 50 exemplaires, numérotée et signée.</p>
+        <p class="body-text fade-up d2" style="padding-bottom:clamp(24px,4vw,40px);">KROMA conçoit des œuvres d'art contemporaines pensées pour l'extérieur, façonnées pour habiter l'architecture et dialoguer avec les éléments. Chaque pièce est éditée en série limitée à 25 exemplaires, numérotée et signée.</p>
         <a href="#collection" class="cta-link fade-up d3">Découvrir la collection <span class="arrow-glyph">→</span></a>
       </div>
     </div>
@@ -581,7 +581,7 @@ footer a:hover{color:#f7f7f7;}
         <div class="piece-circle">
           <img src="Images/kroma-mar-disc.png?v=3" alt="MAR" loading="lazy">
         </div>
-        <p class="piece-edition">Édition I · N° 1–50</p>
+        <p class="piece-edition">Édition I · N° 1–25</p>
         <p class="piece-name">MAR</p>
         <p class="piece-tag">Ø 60 · 80 · 100 cm</p>
         <p class="piece-desc">Profondeur et sérénité. Un dialogue de nuances aquatiques qui apporte une sensation de mouvement et de fraîcheur. Une œuvre fluide, pensée pour instaurer une atmosphère apaisante au bord d'une piscine ou sur une terrasse épurée.</p>
@@ -590,7 +590,7 @@ footer a:hover{color:#f7f7f7;}
         <div class="piece-circle">
           <img src="Images/kroma-solar.png?v=3" alt="SOLAR" loading="lazy">
         </div>
-        <p class="piece-edition">Édition I · N° 1–50</p>
+        <p class="piece-edition">Édition I · N° 1–25</p>
         <p class="piece-name">SOLAR</p>
         <p class="piece-tag">Ø 60 · 80 · 100 cm</p>
         <p class="piece-desc">Énergie pure et rayonnante. Une pièce qui capture l'intensité du soleil et diffuse une chaleur chromatique vibrante, idéale pour réveiller un mur ombragé ou sublimer la lumière dorée du soir.</p>
@@ -599,7 +599,7 @@ footer a:hover{color:#f7f7f7;}
         <div class="piece-circle">
           <img src="Images/kroma-tierra.png?v=3" alt="TIERRA" loading="lazy">
         </div>
-        <p class="piece-edition">Édition I · N° 1–50</p>
+        <p class="piece-edition">Édition I · N° 1–25</p>
         <p class="piece-name">TIERRA</p>
         <p class="piece-tag">Ø 60 · 80 · 100 cm</p>
         <p class="piece-desc">Ancrage et force organique. Un retour aux origines à travers des contrastes de matières et des tonalités telluriques. Elle s'intègre avec force et élégance dans les environnements végétaux, minéraux ou bruts.</p>
@@ -607,7 +607,7 @@ footer a:hover{color:#f7f7f7;}
     </div>
     <div class="coll-bottom fade-up">
       <h3 style="margin-bottom:clamp(12px,2vw,20px);">Une édition rare.</h3>
-      <p class="body-text">Chaque œuvre est éditée à 50 exemplaires par format, numérotés de 1 à 50, et accompagnée de son certificat d'authenticité.</p>
+      <p class="body-text">Chaque œuvre est éditée à 25 exemplaires par format, numérotés de 1 à 25, et accompagnée de son certificat d'authenticité.</p>
     </div>
   </div>
 </section>
@@ -620,7 +620,7 @@ footer a:hover{color:#f7f7f7;}
     <div id="circles-text">
       <div>
         <h2>Une signature.<br>Trois échelles.</h2>
-        <p class="c-note" style="margin-top:16px;"><strong>Édition limitée</strong> · 50 exemplaires par taille</p>
+        <p class="c-note" style="margin-top:16px;"><strong>Édition limitée</strong> · 25 exemplaires par taille</p>
       </div>
       <div class="body-text fade-up" style="padding-bottom:4px;">
         <p style="margin-bottom:clamp(12px,2vw,18px);">Le cercle ouvre la collection : une forme qui ne s'impose pas, elle compose avec l'architecture.</p>
@@ -758,7 +758,7 @@ footer a:hover{color:#f7f7f7;}
       <div class="contact-block fade-up d2">
         <p class="contact-type">Particuliers</p>
         <h3>Entrez dans le cercle KROMA.</h3>
-        <p class="body-text">La vente directe de cette première collection ouvrira très prochainement. Compte tenu du tirage strictement limité à 50 exemplaires par format, les pièces seront attribuées par ordre d'inscription.</p>
+        <p class="body-text">La vente directe de cette première collection ouvrira très prochainement. Compte tenu du tirage strictement limité à 25 exemplaires par format, les pièces seront attribuées par ordre d'inscription.</p>
         <p class="body-text" style="margin-top:12px;">Assurez votre priorité et recevez les détails de lancement en avant-première.</p>
         <form id="particulier-form">
           <div class="kf-field">
@@ -1035,10 +1035,10 @@ if (customCursor && canHover && !prefersReducedMotion) {
   });
 }
 
-// ── EDITION COUNTER (50 ex.) ─────────────────────────
+// ── EDITION COUNTER (25 ex.) ─────────────────────────
 if (!prefersReducedMotion) {
   const editionStat = [...document.querySelectorAll('.stat-val')]
-    .find(el => el.textContent.trim() === '50 ex.');
+    .find(el => el.textContent.trim() === '25 ex.');
   if (editionStat) {
     const ioCount = new IntersectionObserver(entries => {
       if (!entries[0].isIntersecting) return;
@@ -1048,7 +1048,7 @@ if (!prefersReducedMotion) {
       (function tick(now) {
         const t = Math.min((now - start) / dur, 1);
         const ease = 1 - Math.pow(1 - t, 3);
-        editionStat.textContent = t < 1 ? `${Math.round(ease * 50)} ex.` : '50 ex.';
+        editionStat.textContent = t < 1 ? `${Math.round(ease * 25)} ex.` : '25 ex.';
         if (t < 1) requestAnimationFrame(tick);
       })(start);
     }, { threshold: 0.6 });
@@ -1062,7 +1062,7 @@ console.groupCollapsed(
   'font-family:Georgia,serif;font-size:20px;font-weight:700;letter-spacing:.4em;color:#0f0f11;line-height:2;'
 );
 console.log('%cOutdoor Art Gallery', 'font-size:11px;letter-spacing:.18em;color:rgba(15,15,17,.4);');
-console.log('%cAluminium dibond · Édition limitée · 50 ex. par format', 'font-size:11px;color:rgba(15,15,17,.55);margin-top:4px;');
+console.log('%cAluminium dibond · Édition limitée · 25 ex. par format', 'font-size:11px;color:rgba(15,15,17,.55);margin-top:4px;');
 console.log('%cVous regardez le code ? Nous regardons les objets.%c  hello@kroma-art.com', 'font-size:12px;font-style:italic;color:rgba(15,15,17,.65);margin-top:12px;', 'font-size:12px;color:#0f0f11;font-weight:600;');
 console.groupEnd();
 
