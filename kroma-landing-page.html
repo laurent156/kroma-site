@@ -70,9 +70,10 @@ a{cursor:pointer;}
 }
 #nav-burger span{
   display:block;width:22px;height:1.5px;
-  background:var(--ink);
-  transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s;
+  background:rgba(247,247,247,.9);
+  transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s,background .4s;
 }
+#nav.scrolled #nav-burger span{background:var(--ink);}
 body.nav-open #nav-burger span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
 body.nav-open #nav-burger span:nth-child(2){opacity:0;}
 body.nav-open #nav-burger span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
@@ -562,7 +563,7 @@ footer a:hover{color:#f7f7f7;}
     <div class="coll-pieces">
       <div class="fade-up">
         <div class="piece-circle">
-          <img src="Images/kroma-60cm.png" alt="SOLAR" style="object-position:20% center;" loading="lazy">
+          <img src="Images/kroma-solar.jpg" alt="SOLAR" loading="lazy">
         </div>
         <p class="piece-edition">Édition I · N° 1–50</p>
         <p class="piece-name">SOLAR</p>
@@ -580,7 +581,7 @@ footer a:hover{color:#f7f7f7;}
       </div>
       <div class="fade-up d2">
         <div class="piece-circle">
-          <img src="Images/kroma-100cm.png" alt="TIERRA" style="object-position:80% center;" loading="lazy">
+          <img src="Images/kroma-tierra.jpg" alt="TIERRA" loading="lazy">
         </div>
         <p class="piece-edition">Édition I · N° 1–50</p>
         <p class="piece-name">TIERRA</p>
@@ -615,7 +616,7 @@ footer a:hover{color:#f7f7f7;}
     <div id="circles-stage">
       <div id="circles-inner">
         <div class="c-disc" id="c-left">
-          <img src="Images/kroma-60cm.png" alt="" loading="lazy">
+          <img src="Images/kroma-solar.jpg" alt="" loading="lazy">
           <span class="c-label">60cm</span>
         </div>
         <div class="c-disc" id="c-center">
@@ -623,7 +624,7 @@ footer a:hover{color:#f7f7f7;}
           <span class="c-label">80cm</span>
         </div>
         <div class="c-disc" id="c-right">
-          <img src="Images/kroma-100cm.png" alt="" loading="lazy">
+          <img src="Images/kroma-tierra.jpg" alt="" loading="lazy">
           <span class="c-label">100cm</span>
         </div>
       </div>
