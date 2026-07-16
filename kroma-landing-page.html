@@ -861,7 +861,6 @@ body.lb-open{overflow:hidden;}
     <img class="lb-img" src="" alt="" draggable="false">
   </div>
   <div class="lb-caption">
-    <p class="lb-name"></p>
     <p class="lb-meta"></p>
   </div>
 </div>
@@ -1053,7 +1052,6 @@ if (customCursor && canHover && !prefersReducedMotion) {
   const lb = document.getElementById('lightbox');
   if (!lb) return;
   const lbImg  = lb.querySelector('.lb-img');
-  const lbName = lb.querySelector('.lb-name');
   const lbMeta = lb.querySelector('.lb-meta');
   const stage  = lb.querySelector('.lb-stage');
   const btnClose = lb.querySelector('.lb-close');
@@ -1085,7 +1083,6 @@ if (customCursor && canHover && !prefersReducedMotion) {
     const img = new Image();
     img.onload = () => { lbImg.src = p.src; lbImg.alt = p.name; lbImg.style.opacity = '1'; };
     img.src = p.src;
-    lbName.textContent = p.name;
     lbMeta.textContent = p.meta;
   }
   function open(i) {
