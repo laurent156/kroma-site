@@ -1060,9 +1060,19 @@ async function initKromaViewer(container) {
   const scene = new THREE.Scene();
   scene.background = null;
 
-  const camera = new THREE.PerspectiveCamera(38, W() / H(), 0.01, 100);
-  camera.position.set(0, 0, 1.7);
+  // Caméra orthographique : pas de fuite de perspective, le cadre reste
+  // parfaitement rectangulaire à toutes les rotations (rendu configurateur produit).
+  const FRUSTUM = 0.58; // demi-hauteur visible en unités monde (le disque fait rayon 0.5)
+  const camera = new THREE.OrthographicCamera(-FRUSTUM, FRUSTUM, FRUSTUM, -FRUSTUM, 0.01, 100);
+  camera.position.set(0, 0, 3);
   camera.lookAt(0, 0, 0);
+  function updateCamera() {
+    const a = W() / H();
+    camera.left = -FRUSTUM * a; camera.right = FRUSTUM * a;
+    camera.top = FRUSTUM; camera.bottom = -FRUSTUM;
+    camera.updateProjectionMatrix();
+  }
+  updateCamera();
 
   // Environnement studio (2 softbox → reflets glossy)
   function makeStudioEnv() {
@@ -1162,7 +1172,7 @@ async function initKromaViewer(container) {
   }
 
   const ro = new ResizeObserver(() => {
-    camera.aspect = W() / H(); camera.updateProjectionMatrix();
+    updateCamera();
     renderer.setSize(W(), H());
   });
   ro.observe(container);
