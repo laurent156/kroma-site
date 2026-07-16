@@ -625,7 +625,7 @@ body.lb-open{overflow:hidden;}
     <div class="coll-pieces">
       <div class="fade-up">
         <div class="piece-circle">
-          <img src="Images/kroma-mar-disc.png?v=3" alt="MAR" loading="lazy">
+          <img src="Images/kroma-mar-disc.png?v=3" data-full="Images/kroma-mar-xl.jpg" alt="MAR" loading="lazy">
         </div>
         <p class="piece-edition">Édition I · N° 1–25</p>
         <p class="piece-name">MAR</p>
@@ -634,7 +634,7 @@ body.lb-open{overflow:hidden;}
       </div>
       <div class="fade-up d1">
         <div class="piece-circle">
-          <img src="Images/kroma-solar.png?v=3" alt="SOLAR" loading="lazy">
+          <img src="Images/kroma-solar.png?v=3" data-full="Images/kroma-solar-xl.jpg" alt="SOLAR" loading="lazy">
         </div>
         <p class="piece-edition">Édition I · N° 1–25</p>
         <p class="piece-name">SOLAR</p>
@@ -643,7 +643,7 @@ body.lb-open{overflow:hidden;}
       </div>
       <div class="fade-up d2">
         <div class="piece-circle">
-          <img src="Images/kroma-tierra.png?v=3" alt="TIERRA" loading="lazy">
+          <img src="Images/kroma-tierra.png?v=3" data-full="Images/kroma-tierra-xl.jpg" alt="TIERRA" loading="lazy">
         </div>
         <p class="piece-edition">Édition I · N° 1–25</p>
         <p class="piece-name">TIERRA</p>
@@ -1059,11 +1059,13 @@ if (customCursor && canHover && !prefersReducedMotion) {
   const btnNext  = lb.querySelector('.lb-next');
 
   const cards = [...document.querySelectorAll('.coll-pieces > div')];
-  const pieces = cards.map(d => ({
-    src:  d.querySelector('img').getAttribute('src'),
-    name: (d.querySelector('.piece-name') || {}).textContent || '',
-    meta: (d.querySelector('.piece-tag')  || {}).textContent || ''
-  }));
+  const pieces = cards.map(d => {
+    const img = d.querySelector('img');
+    return {
+      src:  img.getAttribute('data-full') || img.getAttribute('src'),
+      meta: (d.querySelector('.piece-tag') || {}).textContent || ''
+    };
+  });
   if (!pieces.length) return;
 
   let idx = 0, scale = 1, tx = 0, ty = 0, lastFocus = null;
@@ -1081,7 +1083,7 @@ if (customCursor && canHover && !prefersReducedMotion) {
     resetZoom();
     lbImg.style.opacity = '0';
     const img = new Image();
-    img.onload = () => { lbImg.src = p.src; lbImg.alt = p.name; lbImg.style.opacity = '1'; };
+    img.onload = () => { lbImg.src = p.src; lbImg.alt = ''; lbImg.style.opacity = '1'; };
     img.src = p.src;
     lbMeta.textContent = p.meta;
   }
