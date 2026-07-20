@@ -427,6 +427,16 @@ h3{
 .kf-field input:focus{border-bottom-color:var(--ink);}
 .kf-field input::placeholder{color:rgba(24,24,24,.35);}
 .kf-field input:invalid:not(:placeholder-shown){border-bottom-color:rgba(180,60,60,.6);}
+.kf-consent{display:flex;align-items:flex-start;gap:10px;margin:4px 0 18px;cursor:pointer;}
+.kf-consent input[type="checkbox"]{position:absolute;opacity:0;width:1px;height:1px;}
+.kf-consent-box{flex-shrink:0;width:16px;height:16px;margin-top:2px;border:1px solid var(--ink-30);transition:background-color .15s,border-color .15s;position:relative;}
+.kf-consent input:checked + .kf-consent-box{background:var(--ink);border-color:var(--ink);}
+.kf-consent input:checked + .kf-consent-box::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid var(--cream);border-width:0 1.5px 1.5px 0;transform:rotate(45deg);}
+.kf-consent input:focus-visible + .kf-consent-box{outline:2px solid var(--ink);outline-offset:2px;}
+.kf-consent-text{font-size:12px;font-weight:300;line-height:1.5;color:var(--ink-60);}
+.kf-consent-text a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--ink-30);text-underline-offset:2px;}
+.kf-consent-text a:hover{text-decoration-color:var(--ink);}
+.kf-honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
 .form-feedback{font-size:13px;font-weight:300;color:var(--ink-60);margin-top:12px;display:none;opacity:0;transition:opacity .6s cubic-bezier(.16,1,.3,1);}
 .form-feedback.visible{opacity:1;}
 .section-cta{padding:clamp(32px,5vw,56px) 0;}
@@ -856,10 +866,19 @@ body.lb-open{overflow:hidden;}
         <form id="particulier-form">
           <div class="kf-field">
             <label for="p-email">Votre email</label>
-            <input type="email" id="p-email" name="email" required placeholder="vous@exemple.com" autocomplete="email">
+            <input type="email" id="p-email" name="EMAIL" required placeholder="vous@exemple.com" autocomplete="email">
           </div>
+          <label class="kf-consent">
+            <input type="checkbox" id="p-consent" name="CONSENTEMENT" value="1" required>
+            <span class="kf-consent-box" aria-hidden="true"></span>
+            <span class="kf-consent-text">J'accepte de recevoir les communications de KROMA et confirme avoir pris connaissance de la <a href="confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a>.</span>
+          </label>
+          <div class="kf-honeypot" aria-hidden="true">
+            <input type="text" name="email_address_check" tabindex="-1" autocomplete="off">
+          </div>
+          <input type="hidden" name="locale" value="fr">
           <button type="submit" class="cta-btn">Rejoindre la liste d'attente <span class="arrow-glyph">→</span></button>
-          <p class="form-feedback" id="form-ok">Votre client mail s'est ouvert. Envoyez l'email pour confirmer votre inscription.</p>
+          <p class="form-feedback" id="form-ok">Vous êtes inscrit·e à la liste d'attente KROMA.</p>
         </form>
       </div>
     </div>
@@ -1219,23 +1238,37 @@ console.log('%cAluminium · Édition limitée · 25 ex. par format', 'font-size:
 console.log('%cVous regardez le code ? Nous regardons les objets.%c  hello@kroma-art.com', 'font-size:12px;font-style:italic;color:rgba(15,15,17,.65);margin-top:12px;', 'font-size:12px;color:#0f0f11;font-weight:600;');
 console.groupEnd();
 
-// ── FORM — particuliers ───────────────────────────────
+// ── FORM — particuliers (liste d'attente Brevo) ───────
 const pForm  = document.getElementById('particulier-form');
 const formOk = document.getElementById('form-ok');
+const BREVO_WAITLIST_ACTION = 'https://5073ca64.sibforms.com/serve/MUIFADs7HCZI_Ou88Z0Ehgro9I7bmhUx6zBf4LI9tlyNzHRezEce0Bz9NEOnj7G0ECJ4jcx-Ex6R5Ha8Kda6y9uOgWP_i-Yhoqry69qAHePmRwTJ5Erig06XkwuF6jg8Ls886jNBUeMg73DS4Q16Z3qxkub8Ap4AYOkIiGWbqFcLGVRFyRFZEF7TKSTucg4jS6abEFlKWzjtft8DZg==';
+
 if (pForm) {
-  pForm.addEventListener('submit', e => {
+  pForm.addEventListener('submit', async e => {
     e.preventDefault();
-    const email = document.getElementById('p-email').value;
-    window.location.href = `mailto:pro@kroma-art.com?subject=Liste d'attente KROMA&body=Email%20:%20${encodeURIComponent(email)}`;
+
+    // Honeypot : champ invisible que seuls les bots remplissent
+    const honeypot = pForm.querySelector('input[name="email_address_check"]');
+    if (honeypot && honeypot.value) return;
+
+    const btn = pForm.querySelector('.cta-btn');
+    if (btn) { btn.style.pointerEvents = 'none'; btn.style.opacity = '.55'; }
+
+    try {
+      await fetch(BREVO_WAITLIST_ACTION, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(pForm))
+      });
+    } catch (err) {
+      // no-cors : la réponse n'est pas lisible, on considère l'envoi transmis
+    }
 
     // Elevated success state
-    const btn = pForm.querySelector('.cta-btn');
     if (btn) {
       btn.innerHTML = 'Inscrit·e <span class="arrow-glyph">✓</span>';
-      btn.style.pointerEvents = 'none';
-      btn.style.opacity = '.55';
       setTimeout(() => {
-        btn.innerHTML = 'Rejoindre la liste <span class="arrow-glyph">→</span>';
+        btn.innerHTML = 'Rejoindre la liste d\'attente <span class="arrow-glyph">→</span>';
         btn.style.pointerEvents = '';
         btn.style.opacity = '';
       }, 5000);
