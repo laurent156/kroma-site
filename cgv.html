@@ -64,6 +64,17 @@ a{cursor:pointer;}
 .legal-body a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--ink-30);text-underline-offset:3px;}
 .legal-body a:hover{text-decoration-color:var(--ink);}
 .legal-note{margin-top:clamp(40px,6vw,56px);padding:clamp(20px,3vw,28px);background:var(--stone);font-size:13px;line-height:1.7;color:var(--ink-60);}
+.legal-intro{max-width:720px;margin-top:clamp(28px,4vw,36px);}
+.legal-toc{display:flex;gap:24px;flex-wrap:wrap;margin-top:clamp(16px,2vw,20px);}
+.legal-toc a{font-size:13px;}
+.legal-part{
+  font-family:'Profa',sans-serif;font-size:11px;font-weight:500;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--ink-label);
+  margin-top:clamp(64px,10vw,96px);padding-top:clamp(32px,5vw,48px);
+  border-top:1px solid var(--ink-12);
+}
+.legal-body>.legal-part:first-child{margin-top:0;padding-top:0;border-top:none;}
+.legal-part+h2{margin-top:clamp(14px,2vw,18px);}
 
 /* ── FOOTER (identique au site) ── */
 footer{
@@ -104,9 +115,18 @@ footer a:hover{color:#f7f7f7;}
     <h1 class="legal-title">Conditions générales de vente</h1>
     <p class="legal-updated">Dernière mise à jour : 20 juillet 2026</p>
 
+    <div class="legal-intro">
+      <p>Ce document comporte deux parties selon la nature de l'acheteur : la <strong>Partie 1</strong> s'applique aux ventes conclues avec des particuliers (consommateurs), la <strong>Partie 2</strong> aux ventes conclues avec des professionnels (architectes, paysagistes, hôtels et autres prescripteurs).</p>
+      <div class="legal-toc">
+        <a href="#particuliers">→ Partie 1 — Particuliers</a>
+        <a href="#professionnels">→ Partie 2 — Professionnels</a>
+      </div>
+    </div>
+
     <div class="legal-body">
+      <div class="legal-part" id="particuliers">Partie 1 — Particuliers (consommateurs)</div>
       <h2>1. Objet</h2>
-      <p>Les présentes conditions générales de vente (CGV) régissent les ventes d'œuvres d'art murales en aluminium réalisées par KROMA auprès de consommateurs, via le site kroma-art.com. Toute commande implique l'acceptation pleine et entière des présentes CGV.</p>
+      <p>Les présentes conditions générales de vente (CGV) régissent les ventes d'œuvres d'art murales en aluminium réalisées par KROMA auprès de particuliers agissant en tant que consommateurs, via le site kroma-art.com. Toute commande implique l'acceptation pleine et entière des présentes CGV.</p>
 
       <h2>2. Identification du vendeur</h2>
       <p>
@@ -132,7 +152,8 @@ footer a:hover{color:#f7f7f7;}
 
       <h2>7. Droit de rétractation</h2>
       <p>Conformément au droit européen de la consommation, vous disposez d'un délai de <strong>14 jours calendaires</strong> à compter de la réception de l'œuvre pour exercer votre droit de rétractation, sans avoir à justifier de motif.</p>
-      <p>Pour exercer ce droit, il suffit d'en informer Laurent Van Ausloos par email à <a href="mailto:laurent@kroma-art.com">laurent@kroma-art.com</a>, avant l'expiration du délai. L'œuvre doit être retournée dans son emballage d'origine, en parfait état, les frais de retour restant à la charge du client sauf accord contraire. Le remboursement intervient dans les 14 jours suivant la réception du bien retourné ou la preuve de son expédition.</p>
+      <p>Pour exercer ce droit, il suffit d'en informer Laurent Van Ausloos par email à <a href="mailto:laurent@kroma-art.com">laurent@kroma-art.com</a>, avant l'expiration du délai. L'œuvre doit être retournée dans son emballage d'origine, en parfait état.</p>
+      <p>Les œuvres étant volumineuses et fragiles, elles ne peuvent pas être renvoyées par voie postale standard : les <strong>frais de retour sont à la charge du client</strong> et sont estimés entre <strong>100 € et 200 €</strong> selon le format de l'œuvre et le pays de destination, sauf accord contraire. Le remboursement intervient dans les 14 jours suivant la réception du bien retourné ou la preuve de son expédition.</p>
 
       <h2>8. Garanties</h2>
       <p>Les œuvres bénéficient de la garantie légale de conformité et de la garantie des vices cachés prévues par le droit belge. Le procédé de sublimation utilisé est garanti résistant aux UV et aux intempéries pendant plus de 5 ans dans des conditions d'usage extérieur normales.</p>
@@ -146,7 +167,35 @@ footer a:hover{color:#f7f7f7;}
       <h2>11. Droit applicable</h2>
       <p>Les présentes CGV sont soumises au droit belge. Tout litige non résolu à l'amiable relève de la compétence des tribunaux de l'arrondissement de Bruxelles, sous réserve des dispositions impératives protectrices du consommateur.</p>
 
-      <div class="legal-note">Document rédigé à partir des informations fournies par l'éditeur du site. Le numéro d'entreprise (BCE) et le régime de TVA doivent être complétés avant l'ouverture effective des ventes. Une relecture par un professionnel du droit est recommandée avant mise en ligne commerciale.</div>
+      <div class="legal-part" id="professionnels">Partie 2 — Professionnels</div>
+      <h2>12. Champ d'application</h2>
+      <p>La présente partie s'applique aux commandes passées par des professionnels (architectes, paysagistes, hôtels, agenceurs et autres prescripteurs) agissant dans le cadre de leur activité professionnelle. Elle prévaut sur la Partie 1 pour ces clients : les dispositions protectrices du consommateur (droit de rétractation, garantie légale de conformité, médiation consommation) ne s'appliquent pas aux professionnels, conformément au Code de droit économique belge.</p>
+
+      <h2>13. Devis et commande</h2>
+      <p>Toute commande professionnelle fait l'objet d'un devis préalable, établi sur la base des besoins exprimés (formats, quantités, délais). La commande est considérée comme ferme à réception du paiement intégral mentionné à l'article 14.</p>
+
+      <h2>14. Prix et paiement</h2>
+      <p>Les prix sont établis sur devis, en euros. Sauf accord écrit contraire, le <strong>paiement s'effectue intégralement à la commande</strong>, par virement bancaire ou lien de paiement sécurisé, avant production et expédition. Aucune livraison n'est effectuée avant réception complète du paiement.</p>
+
+      <h2>15. Absence de droit de rétractation</h2>
+      <p>Conformément à l'article VI.44 et suivants du Code de droit économique belge, le droit de rétractation prévu pour les consommateurs (article 7) ne s'applique pas aux contrats conclus avec des professionnels agissant dans le cadre de leur activité. Toute demande d'annulation après paiement sera examinée au cas par cas.</p>
+
+      <h2>16. Retard de paiement</h2>
+      <p>Dans l'hypothèse exceptionnelle où un paiement échelonné serait convenu par écrit, tout retard de paiement donnera lieu, conformément à la loi du 2 août 2002 concernant la lutte contre le retard de paiement dans les transactions commerciales, à des intérêts de retard au taux légal applicable aux transactions commerciales entre entreprises ainsi qu'à une indemnité forfaitaire pour frais de recouvrement, sans mise en demeure préalable.</p>
+
+      <h2>17. Livraison</h2>
+      <p>Les délais et modalités de livraison prévus à l'article 6 s'appliquent également aux commandes professionnelles. Pour les commandes de plusieurs pièces ou les projets d'envergure, un délai spécifique pourra être convenu par écrit.</p>
+
+      <h2>18. Garantie contractuelle</h2>
+      <p>KROMA garantit ses œuvres contre les défauts de fabrication et la résistance du procédé de sublimation aux UV et aux intempéries pendant plus de 5 ans dans des conditions d'usage extérieur normales. Pour les clients professionnels, cette garantie contractuelle se substitue à la garantie légale de conformité applicable aux consommateurs.</p>
+
+      <h2>19. Responsabilité et force majeure</h2>
+      <p>Comme prévu à l'article 9, KROMA ne saurait être tenu responsable des retards ou inexécutions résultant d'un cas de force majeure, notamment les retards imputables au transporteur.</p>
+
+      <h2>20. Droit applicable</h2>
+      <p>Les commandes professionnelles sont soumises au droit belge. Tout litige non résolu à l'amiable relève de la compétence exclusive des tribunaux de l'arrondissement de Bruxelles.</p>
+
+      <div class="legal-note">Document rédigé à partir des informations fournies par l'éditeur du site. Le numéro d'entreprise (BCE) et le régime de TVA doivent être complétés avant l'ouverture effective des ventes. Le taux d'intérêt légal et le montant de l'indemnité forfaitaire de recouvrement (article 16) évoluent périodiquement : à vérifier auprès du SPF Économie avant publication. Une relecture par un professionnel du droit est recommandée avant mise en ligne commerciale.</div>
     </div>
   </div>
 </main>
