@@ -433,9 +433,18 @@ h3{
   padding:10px 0;outline:none;transition:border-color .2s;
   min-height:44px;
 }
-.kf-field input:focus{border-bottom-color:var(--ink);}
-.kf-field input::placeholder{color:rgba(24,24,24,.35);}
+.kf-field input:focus,.kf-field textarea:focus{border-bottom-color:var(--ink);}
+.kf-field input::placeholder,.kf-field textarea::placeholder{color:rgba(24,24,24,.35);}
 .kf-field input:invalid:not(:placeholder-shown){border-bottom-color:rgba(180,60,60,.6);}
+.kf-field textarea{
+  font-family:'Jost',sans-serif;font-size:16px;font-weight:300;
+  color:var(--ink);background:transparent;border:none;
+  border-bottom:1px solid var(--ink-12);
+  padding:10px 0;outline:none;transition:border-color .2s;
+  resize:vertical;min-height:72px;line-height:1.5;
+}
+.kf-row{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;}
+@media(max-width:520px){.kf-row{grid-template-columns:1fr;}}
 .kf-consent{display:flex;align-items:flex-start;gap:10px;margin:4px 0 18px;cursor:pointer;}
 .kf-consent input[type="checkbox"]{position:absolute;opacity:0;width:1px;height:1px;}
 .kf-consent-box{flex-shrink:0;width:16px;height:16px;margin-top:2px;border:1px solid var(--ink-30);transition:background-color .15s,border-color .15s;position:relative;}
@@ -865,7 +874,43 @@ body.lb-open{overflow:hidden;}
         <h3>Sublimez vos projets outdoor.</h3>
         <p class="body-text">Intégrez une dimension artistique unique dans vos aménagements résidentiels ou hôteliers. Nous vous accompagnons dans le choix des formats et des configurations.</p>
         <p class="body-text" style="margin-top:12px;font-size:13px;color:var(--ink-60);">Kit Échantillon : recevez un échantillon de notre aluminium sublimé pour valider la texture, la brillance et la robustesse sous la lumière réelle.</p>
-        <a href="mailto:laurent@kroma-art.com?subject=Demande devis et échantillon" class="cta-link" style="margin-top:clamp(20px,3vw,32px);">Demander un devis &amp; un échantillon <span class="arrow-glyph">→</span></a>
+        <form id="pro-form" style="margin-top:clamp(20px,3vw,32px);">
+          <div class="kf-row">
+            <div class="kf-field">
+              <label for="pro-nom">Nom</label>
+              <input type="text" id="pro-nom" name="NOM" required placeholder="Votre nom" autocomplete="name" maxlength="200">
+            </div>
+            <div class="kf-field">
+              <label for="pro-societe">Société</label>
+              <input type="text" id="pro-societe" name="SOCIETE" required placeholder="Votre société" autocomplete="organization" maxlength="200">
+            </div>
+          </div>
+          <div class="kf-row">
+            <div class="kf-field">
+              <label for="pro-email">Email</label>
+              <input type="email" id="pro-email" name="EMAIL" required placeholder="vous@exemple.com" autocomplete="email" maxlength="200">
+            </div>
+            <div class="kf-field">
+              <label for="pro-tel">Téléphone</label>
+              <input type="tel" id="pro-tel" name="TELEPHONE" required placeholder="+32 ..." autocomplete="tel" maxlength="200">
+            </div>
+          </div>
+          <div class="kf-field">
+            <label for="pro-message">Votre projet</label>
+            <textarea id="pro-message" name="MESSAGE" rows="3" placeholder="Format, quantité, lieu d'installation..."></textarea>
+          </div>
+          <label class="kf-consent">
+            <input type="checkbox" id="pro-consent" name="OPT_IN" value="1" required>
+            <span class="kf-consent-box" aria-hidden="true"></span>
+            <span class="kf-consent-text">J'accepte de recevoir les communications de KROMA et confirme avoir pris connaissance de la <a href="confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a>.</span>
+          </label>
+          <div class="kf-honeypot" aria-hidden="true">
+            <input type="text" name="email_address_check" tabindex="-1" autocomplete="off">
+          </div>
+          <input type="hidden" name="locale" value="fr">
+          <button type="submit" class="cta-btn">Demander un devis &amp; un échantillon <span class="arrow-glyph">→</span></button>
+          <p class="form-feedback" id="pro-form-ok">Votre demande a bien été envoyée, nous revenons vers vous rapidement.</p>
+        </form>
       </div>
       <div class="contact-block fade-up d2">
         <p class="contact-type">Particuliers</p>
@@ -1288,6 +1333,48 @@ if (pForm) {
       requestAnimationFrame(() => requestAnimationFrame(() => formOk.classList.add('visible')));
     }
     pForm.reset();
+  });
+}
+
+// ── FORM — professionnels (devis & échantillon Brevo) ─
+const proForm  = document.getElementById('pro-form');
+const proFormOk = document.getElementById('pro-form-ok');
+const BREVO_PRO_ACTION = 'https://5073ca64.sibforms.com/serve/MUIFAO6zIabk53Edrf7fI5l6dSJHl23j6bWx7h_U9rvX2fo-9-7H7XXkzBIWzCk2C3uDzHugzcpzzd_zPVUUTSmPScNssROf8b_ph9POudmFlO7KPGpfHS7OZUwSKOpo3WfN7_aNhVhqQSwXrksgNUoJS5ZixG_9w8_Yaq7BNTANbpgJvuM7Lcm72QBdnQjYiCBOUQ1Y7RfVDE6xkA==';
+
+if (proForm) {
+  proForm.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    // Honeypot : champ invisible que seuls les bots remplissent
+    const honeypot = proForm.querySelector('input[name="email_address_check"]');
+    if (honeypot && honeypot.value) return;
+
+    const btn = proForm.querySelector('.cta-btn');
+    if (btn) { btn.style.pointerEvents = 'none'; btn.style.opacity = '.55'; }
+
+    try {
+      await fetch(BREVO_PRO_ACTION, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(proForm))
+      });
+    } catch (err) {
+      // no-cors : la réponse n'est pas lisible, on considère l'envoi transmis
+    }
+
+    if (btn) {
+      btn.innerHTML = 'Demande envoyée <span class="arrow-glyph">✓</span>';
+      setTimeout(() => {
+        btn.innerHTML = 'Demander un devis &amp; un échantillon <span class="arrow-glyph">→</span>';
+        btn.style.pointerEvents = '';
+        btn.style.opacity = '';
+      }, 5000);
+    }
+    if (proFormOk) {
+      proFormOk.style.display = 'block';
+      requestAnimationFrame(() => requestAnimationFrame(() => proFormOk.classList.add('visible')));
+    }
+    proForm.reset();
   });
 }
 </script>
