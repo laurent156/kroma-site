@@ -18,4 +18,58 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/"/>
   </url>
+  <url>
+    <loc>https://kroma-art.com/mar.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/mar.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/mar.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/mar.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/en/mar.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/mar.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/mar.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/mar.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/solar.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/solar.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/solar.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/solar.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/en/solar.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/solar.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/solar.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/solar.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/tierra.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/tierra.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/tierra.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/tierra.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/en/tierra.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/tierra.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/tierra.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/tierra.html"/>
+  </url>
 </urlset>
