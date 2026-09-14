@@ -99,6 +99,49 @@
   "material": "Aluminium"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que KROMA ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "KROMA est une marque belge d'art mural en aluminium, éditée en série limitée à 25 exemplaires par format. Pensées pour l'extérieur, les œuvres résistent aussi bien à l'humidité intérieure : piscines couvertes, spas et salles de bain." }
+    },
+    {
+      "@type": "Question",
+      "name": "En quoi sont fabriquées les œuvres ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Chaque pièce est réalisée en aluminium 3 mm, avec les pigments sublimés par UV haute définition directement dans la matière, pour une brillance et une profondeur de couleur qui ne se décolorent pas." }
+    },
+    {
+      "@type": "Question",
+      "name": "Les œuvres résistent-elles aux intempéries extérieures ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui. Elles sont certifiées résistantes aux UV, à l'humidité et aux variations thermiques, et ne nécessitent aucun entretien particulier. En cas de gel prolongé ou d'exposition hivernale extrême, il est recommandé de les mettre à l'abri." }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on installer une œuvre KROMA dans une salle de bain ou près d'une piscine intérieure ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui. La surface scellée qui protège les œuvres à l'extérieur se comporte tout aussi bien face à la vapeur et à l'humidité ambiante des piscines couvertes, spas et salles de bain." }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien d'exemplaires sont produits par œuvre ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Chaque œuvre est éditée à 25 exemplaires par format, numérotés de 1 à 25 et accompagnés de leur certificat d'authenticité." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels formats sont disponibles ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Trois diamètres : 60, 80 et 100 cm. Les rails de fixation en inox A2 sont inclus avec chaque œuvre." }
+    },
+    {
+      "@type": "Question",
+      "name": "KROMA travaille-t-il avec des architectes et des hôtels ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui, un accompagnement dédié existe pour les projets résidentiels, hôteliers et professionnels, avec un kit échantillon sur demande pour valider la texture et la brillance avant commande." }
+    }
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -455,6 +498,23 @@ h3{
   font-size:9px;letter-spacing:.28em;text-transform:uppercase;
   color:var(--ink-label);margin-top:6px;
 }
+
+/* ── FAQ ── */
+.faq-list{margin-top:clamp(40px,6vw,64px);border-top:1px solid var(--ink-12);}
+.faq-item{border-bottom:1px solid var(--ink-12);}
+.faq-item summary{
+  font-family:'Profa',sans-serif;font-size:clamp(15px,1.6vw,19px);font-weight:500;
+  letter-spacing:-.01em;color:var(--ink);
+  padding:clamp(20px,3vw,28px) 0;cursor:pointer;list-style:none;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{
+  content:'+';font-size:22px;font-weight:300;color:var(--ink-30);flex-shrink:0;
+  transition:transform .3s cubic-bezier(.16,1,.3,1);
+}
+.faq-item[open] summary::after{transform:rotate(45deg);}
+.faq-answer{padding-bottom:clamp(20px,3vw,28px);max-width:70ch;}
 
 /* ── CONTACT ── */
 .contact-grid{
@@ -931,6 +991,43 @@ body.lb-open{overflow:hidden;}
         <p class="body-text fade-up d1" style="margin-top:clamp(20px,3vw,36px);">Avant KROMA, il y a dix ans de production audiovisuelle, de design et une exigence absolue : celle de la matière et du détail. Cette quête de concrétisation a porté la création de Mira Visual Creations, dont les œuvres ont trouvé leur place dans l'intimité de salons privés, en galerie, et jusque dans les collections de Roche Bobois.</p>
         <p class="body-text fade-up d2" style="margin-top:clamp(16px,2.5vw,28px);">KROMA naît de cette même obsession. Une convergence entre l'art, l'architecture et les grands espaces. Un pont jeté entre la rigueur de la technique et la liberté de l'extérieur.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section-xl">
+  <div class="wrap">
+    <h2 class="fade-up">Questions fréquentes.</h2>
+    <div class="faq-list fade-up d1">
+      <details class="faq-item">
+        <summary>Qu'est-ce que KROMA ?</summary>
+        <p class="body-text faq-answer">KROMA est une marque belge d'art mural en aluminium, éditée en série limitée à 25 exemplaires par format. Pensées pour l'extérieur, les œuvres résistent aussi bien à l'humidité intérieure : piscines couvertes, spas et salles de bain.</p>
+      </details>
+      <details class="faq-item">
+        <summary>En quoi sont fabriquées les œuvres ?</summary>
+        <p class="body-text faq-answer">Chaque pièce est réalisée en aluminium 3 mm, avec les pigments sublimés par UV haute définition directement dans la matière, pour une brillance et une profondeur de couleur qui ne se décolorent pas.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Les œuvres résistent-elles aux intempéries extérieures ?</summary>
+        <p class="body-text faq-answer">Oui. Elles sont certifiées résistantes aux UV, à l'humidité et aux variations thermiques, et ne nécessitent aucun entretien particulier. En cas de gel prolongé ou d'exposition hivernale extrême, il est recommandé de les mettre à l'abri.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Peut-on installer une œuvre KROMA dans une salle de bain ou près d'une piscine intérieure ?</summary>
+        <p class="body-text faq-answer">Oui. La surface scellée qui protège les œuvres à l'extérieur se comporte tout aussi bien face à la vapeur et à l'humidité ambiante des piscines couvertes, spas et salles de bain.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Combien d'exemplaires sont produits par œuvre ?</summary>
+        <p class="body-text faq-answer">Chaque œuvre est éditée à 25 exemplaires par format, numérotés de 1 à 25 et accompagnés de leur certificat d'authenticité.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Quels formats sont disponibles ?</summary>
+        <p class="body-text faq-answer">Trois diamètres : 60, 80 et 100 cm. Les rails de fixation en inox A2 sont inclus avec chaque œuvre.</p>
+      </details>
+      <details class="faq-item">
+        <summary>KROMA travaille-t-il avec des architectes et des hôtels ?</summary>
+        <p class="body-text faq-answer">Oui, un accompagnement dédié existe pour les projets résidentiels, hôteliers et professionnels, avec un kit échantillon sur demande pour valider la texture et la brillance avant commande.</p>
+      </details>
     </div>
   </div>
 </section>
