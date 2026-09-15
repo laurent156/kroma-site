@@ -109,6 +109,60 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/procede-fabrication.html"/>
   </url>
   <url>
+    <loc>https://kroma-art.com/choisir-la-taille.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/choisir-la-taille.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/choosing-the-size.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/choisir-la-taille.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/en/choosing-the-size.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/choisir-la-taille.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/choosing-the-size.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/choisir-la-taille.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/comparatif-alternatives.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/comparatif-alternatives.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/comparing-alternatives.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/comparatif-alternatives.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/en/comparing-alternatives.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/comparatif-alternatives.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/comparing-alternatives.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/comparatif-alternatives.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/edition-limitee.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/edition-limitee.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/limited-edition.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/edition-limitee.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/en/limited-edition.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/edition-limitee.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/limited-edition.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/edition-limitee.html"/>
+  </url>
+  <url>
     <loc>https://kroma-art.com/guides.html</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
