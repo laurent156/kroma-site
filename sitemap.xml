@@ -72,4 +72,22 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/tierra.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/tierra.html"/>
   </url>
+  <url>
+    <loc>https://kroma-art.com/art-mural-piscine-interieure.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/art-mural-piscine-interieure.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/indoor-pool-wall-art.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/art-mural-piscine-interieure.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/en/indoor-pool-wall-art.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/art-mural-piscine-interieure.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/indoor-pool-wall-art.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/art-mural-piscine-interieure.html"/>
+  </url>
 </urlset>
