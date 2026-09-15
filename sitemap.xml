@@ -90,4 +90,40 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/indoor-pool-wall-art.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/art-mural-piscine-interieure.html"/>
   </url>
+  <url>
+    <loc>https://kroma-art.com/procede-fabrication.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/procede-fabrication.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/manufacturing-process.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/procede-fabrication.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/en/manufacturing-process.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/procede-fabrication.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/manufacturing-process.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/procede-fabrication.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/guides.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/guides.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/guides.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/guides.html"/>
+  </url>
+  <url>
+    <loc>https://kroma-art.com/en/guides.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kroma-art.com/guides.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kroma-art.com/en/guides.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kroma-art.com/guides.html"/>
+  </url>
 </urlset>
